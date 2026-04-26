@@ -11,7 +11,15 @@ A full-stack lore management app for building fictional worlds through structure
 
 ## Live Demo
 
-_Live Demo Coming Soon_
+Try the deployed full-stack app here:
+
+**▶** https://worldbuilding-codex.vercel.app
+
+The live app runs on a split-hosted architecture:
+
+- **Frontend:** Vercel
+- **Backend:** Render
+- **Database:** Neon PostgreSQL
 
 ---
 

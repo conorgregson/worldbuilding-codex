@@ -3,10 +3,12 @@ import { loginSchema, registerSchema } from "./auth.schema";
 import { getCurrentUser, loginUser, registerUser } from "./auth.service";
 import { AppError } from "../../utils/app-error";
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const cookieOptions = {
   httpOnly: true,
-  sameSite: "lax" as const,
-  secure: false,
+  sameSite: isProduction ? ("none" as const) : ("lax" as const),
+  secure: isProduction,
   path: "/",
   maxAge: 7 * 24 * 60 * 60 * 1000,
 };
@@ -30,8 +32,8 @@ export async function login(req: Request, res: Response) {
 export async function logout(_req: Request, res: Response) {
   res.clearCookie("token", {
     httpOnly: true,
-    sameSite: "lax",
-    secure: false,
+    sameSite: isProduction ? ("none" as const) : ("lax" as const),
+    secure: isProduction,
     path: "/",
   });
 

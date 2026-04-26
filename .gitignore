@@ -3,31 +3,35 @@ node_modules/
 client/node_modules/
 server/node_modules/
 
-# Build output
+# Build / output
 dist/
 build/
 coverage/
 client/dist/
 server/dist/
 
-# Vite / cache
-.vite/
+# TypeScript incremental build info
 *.tsbuildinfo
 
+# Vite cache
+.vite/
+
 # Logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-*.log
 
-# Environment files
+# Environment variables
 .env
 .env.*
 !.env.example
+
 client/.env
 client/.env.*
 !client/.env.example
+
 server/.env
 server/.env.*
 !server/.env.example
@@ -35,23 +39,29 @@ server/.env.*
 # OS / editor files
 .DS_Store
 Thumbs.db
+Desktop.ini
 .vscode/
 .idea/
 
-# Temporary files
+# Temporary / local files
 tmp/
 temp/
 *.tmp
+*.temp
+*.local
 
-# Prisma
+# Test / automation output
+playwright-report/
+test-results/
+
+# Prisma local database files
+# Keep schema, migrations, and seed tracked
 server/prisma/dev.db
 server/prisma/dev.db-journal
 server/prisma/*.db
 server/prisma/*.db-journal
 
-# Test output
-playwright-report/
-test-results/
-
-# Misc
-*.local
+# Optional local archives / exports
+# *.zip
+# *.tar
+# *.gz
