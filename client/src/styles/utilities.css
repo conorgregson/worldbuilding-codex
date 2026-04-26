@@ -1,0 +1,28 @@
+.text-reset {
+  margin: 0;
+}
+
+.muted-text {
+  color: var(--color-text-muted);
+}
+
+.muted-text-reset {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.title-tight {
+  margin: 0 0 4px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.screenshot-clean .muted-block {
+  color: var(--color-text-muted);
+}
+
+.screenshot-clean .ui-card {
+  overflow: hidden;
+}

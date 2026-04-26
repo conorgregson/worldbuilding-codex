@@ -1,0 +1,102 @@
+# Changelog
+
+All notable changes to **Worldbuilding Codex** will be documented in this file.
+
+The format is inspired by *Keep a Changelog*, with concise milestone-based entries focused on meaningful project evolution.
+
+---
+
+## [0.3.0] - Portfolio Packaging & UI Polish
+
+### Added
+- Polished screenshot-ready demo data for the primary showcase world
+- README screenshot set covering dashboard, world detail, entity detail, timeline, relationships, and auth
+- Cleaner shared CSS structure with smaller style files for tokens, base styles, layout, components, auth, and utilities
+- Reusable visual utility classes for repeated layout and card patterns
+
+### Changed
+- Refined dark theme presentation with improved color hierarchy, card depth, and stronger contrast
+- Improved button styling with clearer primary, secondary, and danger variants
+- Added hover, focus, and disabled states for a more polished interactive feel
+- Improved form control styling across inputs, textareas, and selects
+- Tightened page layout rhythm and section spacing for better readability and screenshots
+- Improved auth page layout, helper text hierarchy, and responsive card sizing
+
+### Fixed
+- Resolved input overflow issues on login and register pages
+- Corrected inconsistent button styling on the worlds dashboard
+- Improved placement and grouping of world-level navigation and action buttons
+
+---
+
+## [0.2.0] - Detail Page Refactor & UX Improvements
+
+### Added
+- Modular `WorldDetailPage` sections for:
+  - world summary
+  - world editing
+  - entity creation
+  - entity listing
+  - event form
+  - timeline display
+  - relationship explorer
+- Modular `EntityDetailPage` sections for:
+  - entity summary
+  - entity editing
+  - relationship creation
+  - relationship display
+- Shared `StatusMessage` component for success, error, info, and muted states
+- Back navigation improvements for world and entity detail flows
+- Smooth scroll-to-edit behavior for world and event editing workflows
+
+### Changed
+- Refactored large page components into smaller, easier-to-maintain feature sections
+- Improved visual hierarchy and consistency across detail pages
+- Standardized destructive action prompts and button usage
+- Improved empty, loading, and error states throughout major workflows
+
+### Fixed
+- Resolved multiple TypeScript typing issues during the world/entity detail refactors
+- Fixed stale or inconsistent route handler typing in several frontend sections
+- Corrected form-reset and edit-state behavior on entity detail flows
+
+---
+
+## [0.1.0] - Core Full-Stack Worldbuilding Workflow
+
+### Added
+- Cookie-based authentication with register, login, logout, and protected routes
+- Full CRUD support for worlds
+- Full CRUD support for entities
+- Typed entity system covering:
+  - characters
+  - locations
+  - factions
+  - species
+  - religions
+  - languages
+  - artifacts
+  - organizations
+  - cultures
+  - other
+- Relationship system for linking entities within the same world
+- Timeline event system with:
+  - title
+  - date label
+  - sort year
+  - sort index
+  - summary
+  - description
+- Event participant support with optional role labels
+- World-scoped and user-owned data model
+- Prisma schema, migrations, and seed infrastructure under `server/prisma/`
+
+### Changed
+- Established feature-oriented frontend structure for larger workflows
+- Established module-based backend structure for auth, worlds, entities, relationships, and events
+
+### Fixed
+- Resolved Prisma schema issues involving model relations, uniqueness requirements, and generated client mismatches
+- Fixed route typing issues between Express handlers and parameterized request types
+- Corrected event and relationship service typing errors during backend implementation
+- Fixed auth persistence and cookie handling issues during frontend/backend integration

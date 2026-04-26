@@ -1,0 +1,23 @@
+:root {
+  --color-bg: #0b1220;
+  --color-bg-accent: #0f172a;
+
+  --color-surface: #162235;
+  --color-surface-2: #1a2940;
+  --color-input-bg: #0f1a2b;
+
+  --color-border: #30435f;
+  --color-border-strong: #45607f;
+
+  --color-text-strong: #f8fafc;
+  --color-text: #e2e8f0;
+  --color-text-muted: #b6c2d1;
+
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+
+  --color-danger: #dc2626;
+  --color-danger-hover: #b91c1c;
+
+  --color-focus-ring: rgba(59, 130, 246, 0.35);
+}
