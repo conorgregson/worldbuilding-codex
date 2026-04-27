@@ -180,6 +180,7 @@ A join model that links entities to events, with an optional role label describi
 
 ```bash
 client/
+  .env.example
   src/
     components/
       ui/
@@ -195,6 +196,8 @@ client/
     lib/
 
 server/
+  .env.example
+  .env.production (local helper, untracked)
   prisma/
     migrations/
     schema.prisma
@@ -218,6 +221,8 @@ server/
 - The backend uses module-based organization for each domain area.
 - Prisma schema, migrations, and seed data live under `server/prisma/`.
 - Prisma Client is used by the backend for database access.
+- Production deployment uses Vercel for the frontend, Render for the backend, and Neon for PostgreSQL.
+- A local `.env.prod` workflow can be used to run production Prisma migrations safely without overwriting the default local development database config.
 
 ---
 
@@ -248,24 +253,41 @@ npm install
 
 ### 3. Configure environment variables
 
-Create a `.env` file in `server/` and add your environment variables.
-
-Example:
+#### Create a local development `.env` file in `server/`:
 
 ```env
+NODE_ENV=development
 PORT=4000
-DATABASE_URL=your_database_url_here
-JWT_SECRET=your_jwt_secret_here
+DATABASE_URL=postgresql://username:password@localhost:5432/worldbuilding_codex
+JWT_SECRET=replace_with_a_local_dev_secret
 CLIENT_ORIGIN=http://localhost:5173
 ```
 
-Create a `.env` file in `client/` if needed.
-
-Example:
+#### Create a local development `.env` file in `client/`:
 
 ```env
 VITE_API_URL=http://localhost:4000
 ```
+
+#### Recommended repo-safe templates:
+
+`server/.env.example`
+
+```env
+NODE_ENV=development
+PORT=4000
+DATABASE_URL=postgresql://username:password@localhost:5432/worldbuilding_codex
+JWT_SECRET=replace_with_a_long_random_secret
+CLIENT_ORIGIN=http://localhost:5173
+```
+
+`client/.env.example`
+
+```env
+VITE_API_URL=http://localhost:4000
+```
+
+For production migration workflows, an optional local helper file such as `server/.env.prod` can be used to point Prisma commands at the hosted production database. This file should remain untracked.
 
 ### 4. Run Prisma migrations
 
@@ -284,7 +306,7 @@ From `server/`:
 npm run seed
 ```
 
-Only include this step if you have a working seed script configured in `server/package.json`.
+Use this only if you want demo or development data inserted into the currently configured database.
 
 ### 6. Start the backend
 
@@ -309,6 +331,55 @@ Visit:
 ```txt
 http://localhost:5173
 ```
+
+---
+
+## Deployment
+
+Worldbuilding Codex is deployed with a split-hosted architecture:
+
+- **Frontend:** Vercel
+- **Backend:** Render
+- **Database:** Neon PostgreSQL
+
+### Production environment variables
+
+#### Render
+Set the following environment variables in the Render service dashboard:
+
+```env
+NODE_ENV=production
+DATABASE_URL=your_neon_connection_string
+JWT_SECRET=your_production_jwt_secret
+CLIENT_ORIGIN=https://worldbuilding-codex.vercel.app
+```
+
+#### Vercel
+
+Set the following environment variable in the Vercel project dashboard:
+
+```env
+VITE_API_URL=https://worldbuilding-codex.onrender.com
+```
+
+### Production database migrations
+
+Run production Prisma migrations against the hosted Neon database with a dedicated production env file.
+
+Example helper script:
+
+```bash
+npm run prisma:migrate:prod
+```
+
+This uses `server/.env.prod` locally to apply migrations to the production database without changing the normal local development database configuration.
+
+### Notes
+
+- Local development uses a local PostgreSQL database.
+- Production uses Neon PostgreSQL.
+- The backend uses secure cross-origin cookie settings in production for authentication between Vercel and Render.
+- Vercel client-side routing requires a `vercel.json` SPA rewrite so refreshes on routes like `/worlds` and `/login` resolve correctly.
 
 ---
 

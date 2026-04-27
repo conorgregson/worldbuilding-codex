@@ -6,6 +6,26 @@ The format is inspired by *Keep a Changelog*, with concise milestone-based entri
 
 ---
 
+## [0.4.1] - Live Deployment Stabilization (2026-04-27)
+
+### Added
+- Production deployment workflow using Vercel for the frontend, Render for the backend, and Neon PostgreSQL for the database
+- Environment template files for local development and production migration workflows
+- Production Prisma migration helper flow using a local `.env.production` file
+
+### Changed
+- Updated deployment configuration for cross-origin cookie-based authentication between Vercel and Render
+- Updated backend startup configuration to use the correct compiled server entry in production
+- Improved README deployment guidance for local vs production environment handling
+
+### Fixed
+- Resolved hosted backend startup issues caused by an incorrect production start path
+- Resolved CORS issues caused by an origin mismatch in production configuration
+- Resolved production database connectivity issues by switching from a localhost database URL to Neon
+- Resolved missing production schema issues by applying Prisma migrations to the hosted database
+
+---
+
 ## [0.4.0] - Live Deployment Setup (2026-04-26)
 
 ### Added
