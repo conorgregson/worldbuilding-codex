@@ -25,7 +25,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="auth-shell">
+    <main className="auth-shell">
       <div className="auth-card-wrap">
         <Card>
           <div className="auth-heading">
@@ -34,21 +34,29 @@ export default function LoginPage() {
           </div>
 
           <form className="auth-form" onSubmit={handleSubmit}>
-            <Input
-              type="email"
-              placeholder="Email"
-              autoComplete="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
+            <label className="form-field">
+              <span>Email</span>
+              <Input
+                type="email"
+                placeholder="Email"
+                autoComplete="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
+              />
+            </label>
 
-            <Input
-              type="password"
-              placeholder="Password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
+            <label className="form-field">
+              <span>Password</span>
+              <Input
+                type="password"
+                placeholder="Password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                required
+              />
+            </label>
 
             {login.isError ? (
               <StatusMessage variant="error">
@@ -68,6 +76,6 @@ export default function LoginPage() {
           </p>
         </Card>
       </div>
-    </div>
+    </main>
   );
 }
