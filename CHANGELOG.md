@@ -6,6 +6,40 @@ The format is inspired by *Keep a Changelog*, with concise milestone-based entri
 
 ---
 
+## [1.0.0] - Stable Portfolio Release (2026-04-27)
+
+### Added
+- Stable v1.0 release milestone for the core Worldbuilding Codex workflow
+- `ROADMAP.md` documenting planned post-v1.0 improvements and long-term feature direction
+- README roadmap reference for easier navigation to future development plans
+- README known limitations section clarifying intentionally deferred features
+- Updated README badge/header presentation for the v1.0 stable release
+- Refreshed README screenshot set reflecting the final v1.0 UI and accessibility updates
+- Accessibility improvements across auth, world, entity, event, and relationship workflows
+
+### Changed
+- Promoted Worldbuilding Codex from active pre-release development to a stable portfolio-ready release
+- Updated README status language to position the project as stable for its core lore-management workflow
+- Split the Worlds Dashboard screenshots into separate create-world and existing-worlds views for clearer presentation
+- Improved form accessibility with visible labels across login, register, world, entity, event, and relationship forms
+- Improved page and section structure with clearer semantic layout patterns
+- Improved relationship explorer markup with shared layout classes and more descriptive relationship actions
+- Improved status message semantics for success, error, info, and muted UI feedback
+
+### Fixed
+- Removed unused favicon reference
+- Confirmed custom route-not-found fallback behavior
+- Confirmed route refresh behavior works correctly on deployed Vercel routes
+- Confirmed hosted frontend, backend health check, authentication, protected routes, and core CRUD workflows work in production
+- Confirmed manual accessibility smoke tests pass for the main user flows
+
+### Notes
+- This release represents the first stable public version of Worldbuilding Codex.
+- The v1.0 release is focused on stability, presentation, accessibility, and demo readiness rather than new feature expansion.
+- Future releases will focus on entity search and filtering, richer timeline browsing, relationship visualization, import/export, public sharing, and dashboard analytics.
+
+---
+
 ## [0.4.1] - Live Deployment Stabilization (2026-04-27)
 
 ### Added
