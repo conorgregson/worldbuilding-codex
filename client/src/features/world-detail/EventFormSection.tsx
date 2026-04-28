@@ -38,96 +38,140 @@ export const EventFormSection = forwardRef<HTMLDivElement, EventFormSectionProps
               onSubmit();
             }}
           >
-            <Input
-              value={values.title}
-              onChange={(event) => onChange({ ...values, title: event.target.value })}
-              placeholder="Event title"
-            />
+            <label className="form-field">
+              <span>Event title</span>
+              <Input
+                value={values.title}
+                onChange={(event) =>
+                  onChange({ ...values, title: event.target.value })
+                }
+                placeholder="Event title"
+                required
+              />
+            </label>
 
-            <Input
-              value={values.dateLabel}
-              onChange={(event) =>
-                onChange({ ...values, dateLabel: event.target.value })
-              }
-              placeholder="Date label (e.g. Year 312, Winter)"
-            />
+            <label className="form-field">
+              <span>Date label</span>
+              <Input
+                value={values.dateLabel}
+                onChange={(event) =>
+                  onChange({ ...values, dateLabel: event.target.value })
+                }
+                placeholder="Date label (e.g. Year 312, Winter)"
+              />
+            </label>
 
-            <Input
-              value={values.sortYear}
-              onChange={(event) =>
-                onChange({ ...values, sortYear: event.target.value })
-              }
-              placeholder="Sort year"
-              type="number"
-            />
+            <label className="form-field">
+              <span>Sort year</span>
+              <Input
+                value={values.sortYear}
+                onChange={(event) =>
+                  onChange({ ...values, sortYear: event.target.value })
+                }
+                placeholder="Sort year"
+                type="number"
+              />
+            </label>
 
-            <Input
-              value={values.sortIndex}
-              onChange={(event) =>
-                onChange({ ...values, sortIndex: event.target.value })
-              }
-              placeholder="Sort index"
-              type="number"
-            />
+            <label className="form-field">
+              <span>Sort index</span>
+              <Input
+                value={values.sortIndex}
+                onChange={(event) =>
+                  onChange({ ...values, sortIndex: event.target.value })
+                }
+                placeholder="Sort index"
+                type="number"
+              />
+            </label>
 
-            <Input
-              value={values.summary}
-              onChange={(event) =>
-                onChange({ ...values, summary: event.target.value })
-              }
-              placeholder="Summary"
-            />
+            <label className="form-field">
+              <span>Summary</span>
+              <Input
+                value={values.summary}
+                onChange={(event) =>
+                  onChange({ ...values, summary: event.target.value })
+                }
+                placeholder="Summary"
+              />
+            </label>
 
-            <Textarea
-              value={values.description}
-              onChange={(event) =>
-                onChange({ ...values, description: event.target.value })
-              }
-              placeholder="Description"
-            />
+            <label className="form-field">
+              <span>Description</span>
+              <Textarea
+                value={values.description}
+                onChange={(event) =>
+                  onChange({ ...values, description: event.target.value })
+                }
+                placeholder="Description"
+              />
+            </label>
 
             <div className="page-subsection-stack">
-              <h3 className="subsection-title">Participants</h3>
+              <div className="section-heading">
+                <h3>Participants</h3>
+                <p>
+                  Link entities to this event and describe their role in what
+                  happened.
+                </p>
+              </div>
+
+              {values.participants.length === 0 ? (
+                <StatusMessage variant="muted">
+                  No participants added yet.
+                </StatusMessage>
+              ) : null}
 
               {values.participants.map((participant, index) => (
-                <Card key={index} className="nested-surface">
+                <Card key={`${participant.entityId}-${index}`} className="nested-surface">
                   <div className="nested-stack">
-                    <select
-                      value={participant.entityId}
-                      onChange={(event) =>
-                        onUpdateParticipant(index, "entityId", event.target.value)
-                      }
-                    >
-                      <option value="">Select entity</option>
-                      {entities.map((candidate) => (
-                        <option key={candidate.id} value={candidate.id}>
-                          {candidate.name} ({candidate.type})
-                        </option>
-                      ))}
-                    </select>
+                    <label className="form-field">
+                      <span>Participant entity</span>
+                      <select
+                        value={participant.entityId}
+                        onChange={(event) =>
+                          onUpdateParticipant(index, "entityId", event.target.value)
+                        }
+                      >
+                        <option value="">Select entity</option>
+                        {entities.map((candidate) => (
+                          <option key={candidate.id} value={candidate.id}>
+                            {candidate.name} ({candidate.type})
+                          </option>
+                        ))}
+                      </select>
+                    </label>
 
-                    <Input
-                      value={participant.roleLabel ?? ""}
-                      onChange={(event) =>
-                        onUpdateParticipant(index, "roleLabel", event.target.value)
-                      }
-                      placeholder="Role label (e.g. Witness, Commander)"
-                    />
+                    <label className="form-field">
+                      <span>Participant role</span>
+                      <Input
+                        value={participant.roleLabel ?? ""}
+                        onChange={(event) =>
+                          onUpdateParticipant(index, "roleLabel", event.target.value)
+                        }
+                        placeholder="Role label (e.g. Witness, Commander)"
+                      />
+                    </label>
 
-                    <Button
-                      type="button"
-                      variant="secondary"
-                      onClick={() => onRemoveParticipant(index)}
-                    >
-                      Remove Participant
-                    </Button>
+                    <div className="form-actions">
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        onClick={() => onRemoveParticipant(index)}
+                        aria-label={`Remove participant ${index + 1}`}
+                      >
+                        Remove Participant
+                      </Button>
+                    </div>
                   </div>
                 </Card>
               ))}
 
-              <Button type="button" variant="secondary" onClick={onAddParticipant}>
-                Add Participant
-              </Button>
+              <div className="form-actions">
+                <Button type="button" variant="secondary" onClick={onAddParticipant}>
+                  Add Participant
+                </Button>
+              </div>
             </div>
 
             {successMessage ? (
