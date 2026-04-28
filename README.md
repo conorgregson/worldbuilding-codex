@@ -1,11 +1,20 @@
-# Worldbuilding Codex
+<h1 align="center">Worldbuilding Codex</h1>
 
-A full-stack lore management app for building fictional worlds through structured entities, relationships, and timeline events.
+<p align="center">
+  A full-stack lore management app for building fictional worlds through structured entities, relationships, and timeline events.
+</p>
 
-![Status](https://img.shields.io/badge/Status-In%20Active%20Development-2563eb?style=for-the-badge)
-![Frontend](https://img.shields.io/badge/Frontend-React%20%2B%20TypeScript-0f172a?style=for-the-badge)
-![Backend](https://img.shields.io/badge/Backend-Express%20%2B%20TypeScript-0f172a?style=for-the-badge)
-![Database](https://img.shields.io/badge/Database-PostgreSQL%20%2B%20Prisma-0f172a?style=for-the-badge)
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-v1.0%20Stable%20Release-22c55e?style=for-the-badge" alt="Status: v1.0 Stable Release" />
+  <img src="https://img.shields.io/badge/Frontend-React%20%2B%20TypeScript-0f172a?style=for-the-badge&logo=react&logoColor=61dafb" alt="Frontend: React + TypeScript" />
+  <img src="https://img.shields.io/badge/Backend-Express%20%2B%20TypeScript-0f172a?style=for-the-badge&logo=express&logoColor=ffffff" alt="Backend: Express + TypeScript" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Database-PostgreSQL%20%2B%20Prisma-0f172a?style=for-the-badge&logo=postgresql&logoColor=60a5fa" alt="Database: PostgreSQL + Prisma" />
+  <img src="https://img.shields.io/badge/Deploy-Vercel%20%2B%20Render%20%2B%20Neon-0f172a?style=for-the-badge&logo=vercel&logoColor=ffffff" alt="Deploy: Vercel + Render + Neon" />
+  <img src="https://img.shields.io/badge/Version-v1.0.0-2563eb?style=for-the-badge" alt="Version: v1.0.0" />
+</p>
 
 ---
 
@@ -82,10 +91,11 @@ Instead of storing lore in scattered text files or unstructured notes, the app m
 
 ---
 
-## Screenshots
+### Worlds Dashboard — Create World
+![Worlds Dashboard — Create World](docs/screenshots/worlds-dashboard-create.png)
 
-### Worlds Dashboard
-![Worlds Dashboard](docs/screenshots/worlds-dashboard.png)
+### Worlds Dashboard — Existing Worlds
+![Worlds Dashboard — Existing Worlds](docs/screenshots/worlds-dashboard-list.png)
 
 ### World Detail — Aurelith
 ![World Detail — Aurelith](docs/screenshots/world-detail-aurelith.png)
@@ -96,8 +106,8 @@ Instead of storing lore in scattered text files or unstructured notes, the app m
 ### Timeline — Aurelith
 ![Timeline — Aurelith](docs/screenshots/timeline-aurelith.png)
 
-### Relationships — Ilyra Voss
-![Relationships — Ilyra Voss](docs/screenshots/relationships-ilyra-voss.png)
+### Relationships — Aurelith
+![Relationships — Aurelith](docs/screenshots/relationships-ilyra-voss.png)
 
 ### Register
 ![Register](docs/screenshots/auth-register.png)
@@ -385,7 +395,7 @@ This uses `server/.env.prod` locally to apply migrations to the production datab
 
 ## Current Status
 
-Worldbuilding Codex is currently feature-complete for its core lore workflow.
+Worldbuilding Codex is currently in its first stable v1.0 release and is feature-complete for its core lore-management workflow.
 
 Implemented:
 
@@ -407,7 +417,27 @@ Current focus:
 
 ---
 
+## Known Limitations
+
+Worldbuilding Codex is stable for its core v1.0 workflow, but several areas are intentionally scoped for future releases.
+
+- Entity browsing is currently basic. Large worlds would benefit from search, filtering, sorting, and tag-based navigation.
+- Relationship data is currently shown in list/detail form. A visual graph view is planned for exploring connected entities more naturally.
+- Timeline functionality supports structured events and participants, but a dedicated full-page timeline explorer is planned.
+- Import/export support is not yet available, so worlds cannot currently be backed up or transferred through the UI.
+- Public read-only sharing is not yet implemented, so worlds are private to each authenticated user.
+- Dashboard analytics are not yet available for world-level summaries such as entity counts, relationship density, or timeline activity.
+- Collaboration features are not currently supported.
+
+---
+
 ## Roadmap / Future Improvements
+
+Worldbuilding Codex is currently stable for its core v1.0 lore-management workflow. Future development will focus on making large fictional worlds easier to browse, visualize, share, and preserve.
+
+See the full project roadmap here:
+
+**[View the Roadmap](./ROADMAP.md)**
 
 Planned improvements include:
 

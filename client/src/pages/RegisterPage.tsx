@@ -25,7 +25,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="auth-shell">
+    <main className="auth-shell">
       <div className="auth-card-wrap">
         <Card>
           <div className="auth-heading">
@@ -34,21 +34,29 @@ export default function RegisterPage() {
           </div>
 
           <form className="auth-form" onSubmit={handleSubmit}>
-            <Input
-              type="email"
-              placeholder="Email"
-              autoComplete="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
+            <label className="form-field">
+              <span>Email</span>
+              <Input
+                type="email"
+                placeholder="Email"
+                autoComplete="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
+              />
+            </label>
 
-            <Input
-              type="password"
-              placeholder="Password"
-              autoComplete="new-password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
+            <label className="form-field">
+              <span>Password</span>
+              <Input
+                type="password"
+                placeholder="Password"
+                autoComplete="new-password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                required
+              />
+            </label>
 
             {register.isError ? (
               <StatusMessage variant="error">
@@ -59,11 +67,7 @@ export default function RegisterPage() {
             ) : null}
 
             <div className="card-actions">
-              <Button
-                type="submit"
-                disabled={register.isPending}
-                className="auth-submit"
-              >
+              <Button type="submit" disabled={register.isPending} className="auth-submit">
                 {register.isPending ? "Creating account..." : "Register"}
               </Button>
             </div>
@@ -74,6 +78,6 @@ export default function RegisterPage() {
           </p>
         </Card>
       </div>
-    </div>
+    </main>
   );
 }

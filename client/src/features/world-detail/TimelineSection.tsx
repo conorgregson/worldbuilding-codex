@@ -91,6 +91,7 @@ export function TimelineSection({
                 variant="danger"
                 onClick={() => onDelete(timelineEvent.id)}
                 disabled={isDeleting}
+                aria-label={`Delete event ${timelineEvent.title}`}
               >
                 {isDeleting ? "Deleting..." : "Delete Event"}
               </Button>

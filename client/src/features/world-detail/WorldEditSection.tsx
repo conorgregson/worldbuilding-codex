@@ -26,14 +26,20 @@ export const WorldEditSection = forwardRef<HTMLDivElement, WorldEditSectionProps
               onSubmit();
             }}
           >
+           <label className="form-field">
+            <span>World title</span>
             <Input
               placeholder="World title"
               value={values.title}
               onChange={(event) =>
                 onChange({ ...values, title: event.target.value })
               }
+              required
             />
+          </label>
 
+          <label className="form-field">
+            <span>Genre</span>
             <Input
               placeholder="Genre"
               value={values.genre}
@@ -41,7 +47,10 @@ export const WorldEditSection = forwardRef<HTMLDivElement, WorldEditSectionProps
                 onChange({ ...values, genre: event.target.value })
               }
             />
+          </label>
 
+          <label className="form-field">
+            <span>Description</span>
             <Textarea
               placeholder="Description"
               value={values.description}
@@ -49,6 +58,7 @@ export const WorldEditSection = forwardRef<HTMLDivElement, WorldEditSectionProps
                 onChange({ ...values, description: event.target.value })
               }
             />
+          </label>
 
             {errorMessage ? (
               <StatusMessage variant="error">{errorMessage}</StatusMessage>

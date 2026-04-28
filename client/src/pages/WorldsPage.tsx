@@ -95,7 +95,7 @@ export default function WorldsPage() {
   }
 
   return (
-    <div className="page-shell">
+    <main className="page-shell">
       <div className="section-heading">
         <h1>My Worlds</h1>
         <p>Create and manage your fictional worlds.</p>
@@ -112,21 +112,33 @@ export default function WorldsPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="page-subsection-stack">
-          <Input
-            placeholder="World title"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-          />
-          <Input
-            placeholder="Genre"
-            value={genre}
-            onChange={(event) => setGenre(event.target.value)}
-          />
-          <Textarea
-            placeholder="Description"
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
-          />
+          <label className="form-field">
+            <span>World title</span>
+            <Input
+              placeholder="World title"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+              required
+            />
+          </label>
+
+          <label className="form-field">
+            <span>Genre</span>
+            <Input
+              placeholder="Genre"
+              value={genre}
+              onChange={(event) => setGenre(event.target.value)}
+            />
+          </label>
+
+          <label className="form-field">
+            <span>Description</span>
+            <Textarea
+              placeholder="Description"
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+            />
+          </label>
 
           {createWorldMutation.isError || updateWorldMutation.isError ? (
             <StatusMessage variant="error">
@@ -187,12 +199,9 @@ export default function WorldsPage() {
             </div>
 
             <div className="card-actions">
-              <Link to={`/worlds/${world.id}`} style={{ textDecoration: "none" }}>
-                <Button type="button" variant="secondary">
-                  Open World
-                </Button>
+              <Link className="ui-link-button ui-link-button--secondary" to={`/worlds/${world.id}`}>
+                Open World
               </Link>
-
               <Button
                 type="button"
                 variant="secondary"
@@ -213,6 +222,6 @@ export default function WorldsPage() {
           </Card>
         ))}
       </div>
-    </div>
+    </main>
   );
 }

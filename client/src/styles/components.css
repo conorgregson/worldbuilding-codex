@@ -50,6 +50,48 @@ select:focus {
   background: #122038;
 }
 
+.ui-link-button {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    opacity 160ms ease;
+}
+
+.ui-link-button:hover {
+  transform: translateY(-1px);
+  text-shadow: none;
+}
+
+.ui-link-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.ui-link-button--secondary {
+  background: var(--color-surface-2);
+  color: var(--color-text-strong);
+  border: 1px solid var(--color-border-strong);
+}
+
+.ui-link-button--secondary:hover {
+  background: #22324a;
+  border-color: #5b769c;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+}
+
 select {
   width: 100%;
   min-height: 46px;
@@ -143,6 +185,17 @@ select:disabled {
 .divider-top {
   padding-top: 16px;
   border-top: 1px solid rgba(69, 96, 127, 0.45);
+}
+
+.form-field {
+  display: grid;
+  gap: 6px;
+}
+
+.form-field > span {
+  color: var(--color-text-strong);
+  font-size: 0.92rem;
+  font-weight: 700;
 }
 
 .form-stack {

@@ -17,8 +17,12 @@ export function StatusMessage({
   children,
   variant = "info",
 }: StatusMessageProps) {
+  const isAssertive = variant === "error";
+
   return (
     <p
+      role={isAssertive ? "alert" : "status"}
+      aria-live={isAssertive ? "assertive" : "polite"}
       style={{
         margin: 0,
         color: colorByVariant[variant],

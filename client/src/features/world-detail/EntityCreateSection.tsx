@@ -40,54 +40,73 @@ export function EntityCreateSection({
           onSubmit();
         }}
       >
-        <select
-          value={values.type}
-          onChange={(event) =>
-            onChange({ ...values, type: event.target.value as EntityType })
-          }
-        >
-          {entityTypeOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+        <label className="form-field">
+          <span>Entity type</span>
+          <select
+            value={values.type}
+            onChange={(event) =>
+              onChange({ ...values, type: event.target.value as EntityType })
+            }
+          >
+            {entityTypeOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </label>
 
-        <Input
-          placeholder="Name"
-          value={values.name}
-          onChange={(event) => onChange({ ...values, name: event.target.value })}
-        />
+        <label className="form-field">
+          <span>Name</span>
+          <Input
+            placeholder="Name"
+            value={values.name}
+            onChange={(event) => onChange({ ...values, name: event.target.value })}
+            required
+          />
+        </label>
 
-        <Input
-          placeholder="Summary"
-          value={values.summary}
-          onChange={(event) =>
-            onChange({ ...values, summary: event.target.value })
-          }
-        />
+        <label className="form-field">
+          <span>Summary</span>
+          <Input
+            placeholder="Summary"
+            value={values.summary}
+            onChange={(event) =>
+              onChange({ ...values, summary: event.target.value })
+            }
+          />
+        </label>
 
-        <Textarea
-          placeholder="Description"
-          value={values.description}
-          onChange={(event) =>
-            onChange({ ...values, description: event.target.value })
-          }
-        />
+        <label className="form-field">
+          <span>Description</span>
+          <Textarea
+            placeholder="Description"
+            value={values.description}
+            onChange={(event) =>
+              onChange({ ...values, description: event.target.value })
+            }
+          />
+        </label>
 
-        <Textarea
-          placeholder="Notes"
-          value={values.notes}
-          onChange={(event) =>
-            onChange({ ...values, notes: event.target.value })
-          }
-        />
+        <label className="form-field">
+          <span>Notes</span>
+          <Textarea
+            placeholder="Notes"
+            value={values.notes}
+            onChange={(event) =>
+              onChange({ ...values, notes: event.target.value })
+            }
+          />
+        </label>
 
-        <Input
-          placeholder="Tags (comma separated)"
-          value={values.tags}
-          onChange={(event) => onChange({ ...values, tags: event.target.value })}
-        />
+        <label className="form-field">
+          <span>Tags</span>
+          <Input
+            placeholder="Tags (comma separated)"
+            value={values.tags}
+            onChange={(event) => onChange({ ...values, tags: event.target.value })}
+          />
+        </label>
 
         {errorMessage ? (
           <StatusMessage variant="error">{errorMessage}</StatusMessage>

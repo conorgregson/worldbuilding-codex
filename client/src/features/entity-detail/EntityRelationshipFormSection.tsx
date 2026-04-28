@@ -23,10 +23,10 @@ export function EntityRelationshipFormSection({
 
   return (
     <Card>
-      <h2>Create Relationship</h2>
-      <p style={{ marginTop: 0, color: "#d1d5db" }}>
-        Connect this entity to others in the same world.
-      </p>
+      <div className="section-heading">
+        <h2>Create Relationship</h2>
+        <p>Connect this entity to others in the same world.</p>
+      </div>
 
       {!canCreateRelationship ? (
         <StatusMessage variant="muted">
@@ -39,42 +39,51 @@ export function EntityRelationshipFormSection({
           event.preventDefault();
           onSubmit();
         }}
-        style={{ display: "grid", gap: 12 }}
+        className="form-stack"
       >
-        <p>
+        <p className="text-reset">
           Source Entity: <strong>{currentEntity.name}</strong>
         </p>
 
-        <select
-          value={values.targetEntityId}
-          onChange={(event) =>
-            onChange({ ...values, targetEntityId: event.target.value })
-          }
-          disabled={!canCreateRelationship || isCreating}
-        >
-          <option value="">Select related entity</option>
-          {availableTargets.map((candidate) => (
-            <option key={candidate.id} value={candidate.id}>
-              {candidate.name} ({candidate.type})
-            </option>
-          ))}
-        </select>
+        <label className="form-field">
+          <span>Related entity</span>
+          <select
+            value={values.targetEntityId}
+            onChange={(event) =>
+              onChange({ ...values, targetEntityId: event.target.value })
+            }
+            disabled={!canCreateRelationship || isCreating}
+          >
+            <option value="">Select related entity</option>
+            {availableTargets.map((candidate) => (
+              <option key={candidate.id} value={candidate.id}>
+                {candidate.name} ({candidate.type})
+              </option>
+            ))}
+          </select>
+        </label>
 
-        <Input
-          value={values.relationshipType}
-          onChange={(event) =>
-            onChange({ ...values, relationshipType: event.target.value })
-          }
-          placeholder="Relationship type (e.g. member of, allied with, located in)"
-          disabled={!canCreateRelationship || isCreating}
-        />
+        <label className="form-field">
+          <span>Relationship type</span>
+          <Input
+            value={values.relationshipType}
+            onChange={(event) =>
+              onChange({ ...values, relationshipType: event.target.value })
+            }
+            placeholder="Example: member of, allied with, located in"
+            disabled={!canCreateRelationship || isCreating}
+          />
+        </label>
 
-        <Textarea
-          value={values.note}
-          onChange={(event) => onChange({ ...values, note: event.target.value })}
-          placeholder="Optional note"
-          disabled={!canCreateRelationship || isCreating}
-        />
+        <label className="form-field">
+          <span>Relationship note</span>
+          <Textarea
+            value={values.note}
+            onChange={(event) => onChange({ ...values, note: event.target.value })}
+            placeholder="Optional note"
+            disabled={!canCreateRelationship || isCreating}
+          />
+        </label>
 
         {successMessage ? (
           <StatusMessage variant="success">{successMessage}</StatusMessage>
