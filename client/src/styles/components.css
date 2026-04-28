@@ -145,6 +145,17 @@ select:disabled {
   border-top: 1px solid rgba(69, 96, 127, 0.45);
 }
 
+.form-field {
+  display: grid;
+  gap: 6px;
+}
+
+.form-field > span {
+  color: var(--color-text-strong);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
 .form-stack {
   display: grid;
   gap: 12px;
