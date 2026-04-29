@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Status-v1.0%20Stable%20Release-22c55e?style=for-the-badge" alt="Status: v1.0 Stable Release" />
+  <img src="https://img.shields.io/badge/Status-v1.1%20Released-22c55e?style=for-the-badge" alt="Status: v1.1 Released" />
   <img src="https://img.shields.io/badge/Frontend-React%20%2B%20TypeScript-0f172a?style=for-the-badge&logo=react&logoColor=61dafb" alt="Frontend: React + TypeScript" />
   <img src="https://img.shields.io/badge/Backend-Express%20%2B%20TypeScript-0f172a?style=for-the-badge&logo=express&logoColor=ffffff" alt="Backend: Express + TypeScript" />
 </p>
@@ -13,7 +13,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Database-PostgreSQL%20%2B%20Prisma-0f172a?style=for-the-badge&logo=postgresql&logoColor=60a5fa" alt="Database: PostgreSQL + Prisma" />
   <img src="https://img.shields.io/badge/Deploy-Vercel%20%2B%20Render%20%2B%20Neon-0f172a?style=for-the-badge&logo=vercel&logoColor=ffffff" alt="Deploy: Vercel + Render + Neon" />
-  <img src="https://img.shields.io/badge/Version-v1.0.0-2563eb?style=for-the-badge" alt="Version: v1.0.0" />
+  <img src="https://img.shields.io/badge/Version-v1.1.0-2563eb?style=for-the-badge" alt="Version: v1.1.0" />
 </p>
 
 ---
@@ -66,6 +66,11 @@ Instead of storing lore in scattered text files or unstructured notes, the app m
   - organizations
   - cultures
 - Edit entity summaries, descriptions, notes, and tags
+- Search entities by name, type, summary, description, notes, and tags
+- Filter entities by type and tag
+- Sort entities alphabetically, by type, or by recently updated
+- Preserve entity browsing controls through URL query parameters
+- Clear search/filter/sort controls with no-results guidance
 
 ### Relationship modeling
 - Create typed relationships between entities in the same world
@@ -88,6 +93,8 @@ Instead of storing lore in scattered text files or unstructured notes, the app m
 - Reusable UI components for cards, buttons, inputs, and status messages
 - Clear success, error, loading, and empty states
 - Confirm prompts for destructive actions
+- Accessible entity browsing controls with keyboard-friendly search, filters, sorting, and reset behavior
+- Responsive entity browsing layout for desktop and mobile screens
 
 ---
 
@@ -99,6 +106,9 @@ Instead of storing lore in scattered text files or unstructured notes, the app m
 
 ### World Detail — Aurelith
 ![World Detail — Aurelith](docs/screenshots/world-detail-aurelith.png)
+
+### Entity Browsing — Search & Filters
+![Entity Browsing — Search & Filters](docs/screenshots/entity-browsing-search-filters.png)
 
 ### Entity Detail — Ilyra Voss
 ![Entity Detail — Ilyra Voss](docs/screenshots/entity-detail-ilyra-voss.png)
@@ -207,7 +217,7 @@ client/
 
 server/
   .env.example
-  .env.production (local helper, untracked)
+  .env.prod (local helper, untracked)
   prisma/
     migrations/
     schema.prisma
@@ -395,25 +405,31 @@ This uses `server/.env.prod` locally to apply migrations to the production datab
 
 ## Current Status
 
-Worldbuilding Codex is currently in its first stable v1.0 release and is feature-complete for its core lore-management workflow.
+Worldbuilding Codex is currently in its v1.1 release. The core lore-management workflow is stable, and the entity browsing experience now supports search, filtering, sorting, persistent query state, no-results guidance, and accessibility/responsive polish.
 
 Implemented:
 
 - authentication
 - worlds CRUD
 - entities CRUD
+- entity search by name, type, summary, description, notes, and tags
+- entity filtering by type and tag
+- entity sorting alphabetically, by type, and by recently updated
+- URL-persisted entity browsing controls
+- entity no-results and reset states
 - relationship creation, viewing, and deletion
 - timeline event creation, viewing, editing, and deletion
 - event participants
 - modular refactored detail pages
 - protected user-owned data flow
+- accessibility and responsive polish for entity browsing
 
 Current focus:
 
-- UI polish
-- portfolio presentation
-- demo readiness
-- README and screenshot packaging
+- v1.2 Timeline Explorer planning
+- deeper timeline browsing
+- relationship visualization
+- continued portfolio polish
 
 ---
 
@@ -421,7 +437,7 @@ Current focus:
 
 Worldbuilding Codex is stable for its core v1.0 workflow, but several areas are intentionally scoped for future releases.
 
-- Entity browsing is currently basic. Large worlds would benefit from search, filtering, sorting, and tag-based navigation.
+- Entity browsing now supports search, filtering, sorting, and no-results guidance, but advanced saved views and fuzzy search are not yet implemented.
 - Relationship data is currently shown in list/detail form. A visual graph view is planned for exploring connected entities more naturally.
 - Timeline functionality supports structured events and participants, but a dedicated full-page timeline explorer is planned.
 - Import/export support is not yet available, so worlds cannot currently be backed up or transferred through the UI.
@@ -441,14 +457,13 @@ See the full project roadmap here:
 
 Planned improvements include:
 
-- entity filtering and search
+- dedicated timeline explorer
 - richer relationship taxonomy / presets
-- dedicated timeline page
 - graph/network view for entity relationships
-- improved accessibility pass
 - import/export support
 - public read-only sharing
 - world-level dashboard analytics
+- advanced saved entity views or fuzzy search
 - more advanced lore browsing and navigation
 
 ---
