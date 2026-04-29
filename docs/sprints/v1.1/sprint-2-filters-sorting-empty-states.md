@@ -1,4 +1,3 @@
-
 # Worldbuilding Codex v1.1 — Sprint 2: Filters, Sorting & Empty States
 
 ## Goal
@@ -13,7 +12,7 @@ Sprint 2 builds on Sprint 1 by turning the entity list into a more complete brow
 
 Worldbuilding Codex v1.1 focuses on making large fictional worlds easier to browse through search, filtering, sorting, and stronger empty states.
 
-Sprint 1 establishes search and browsing state. Sprint 2 adds the remaining entity browsing controls and makes sure those controls work together.
+Sprint 1 established search and URL-based browsing state. Sprint 2 adds the remaining entity browsing controls and makes sure those controls work together.
 
 ---
 
@@ -24,140 +23,140 @@ Sprint 1 establishes search and browsing state. Sprint 2 adds the remaining enti
 - Add entity sorting controls.
 - Support sorting alphabetically.
 - Support sorting by entity type.
-- Support sorting by recently updated if supported by the current data shape.
+- Support sorting by recently updated.
 - Make search, filters, and sorting work together.
 - Add no-results state for filtered/searched results.
 - Keep true empty-entity states separate from no-results states.
 - Add clear/reset controls for hidden results.
+- Preserve entity browsing controls in URL query params.
 
 ---
 
 ## Linked Issues
 
-- [ ] Add entity type filtering
-- [ ] Add entity tag filtering
-- [ ] Add entity sorting controls
-- [ ] Add entity no-results and empty states
+- [x] Add entity type filtering
+- [x] Add entity tag filtering
+- [x] Add entity sorting controls
+- [x] Add entity no-results and empty states
 
 ---
 
-## Implementation Plan
+## Implementation Summary
 
-### 1. Review Sprint 1 search/state implementation
+Sprint 2 expanded the entity browsing experience from search-only into a full search/filter/sort flow.
 
-Before adding new controls, confirm:
+Implemented work includes:
 
-- Search state is stable.
-- Search filtering logic is easy to extend.
-- The entity list can support multiple derived result states.
-- URL params or state utilities can support type/tag/sort values if needed.
+- Added entity type filtering.
+- Added entity tag filtering.
+- Added entity sorting controls.
+- Added alphabetical sorting.
+- Added sorting by entity type.
+- Added sorting by recently updated.
+- Combined search, type filtering, tag filtering, and sorting into one derived visible-entities flow.
+- Added a reset action for active search/filter/sort controls.
+- Added no-results messaging when active controls hide all entities.
+- Preserved active browsing controls in URL query parameters.
 
-### 2. Add type filtering
+---
 
-Add a type filter control for supported entity types.
+## Query Param Behavior
 
-Supported types should include current app-supported entity types, such as:
+Sprint 2 expanded the entity browsing URL state with:
+
+```txt
+entitySearch
+entityType
+entityTag
+entitySort
+```
+
+Example:
+
+```txt
+/worlds/:worldId?entitySearch=empire&entityType=FACTION&entityTag=royalty&entitySort=updated
+```
+
+This keeps entity browisng controls:
+
+- Refresh-safe
+- Easier to test manually
+- Easier to share or revisit
+- Consistent with Sprint 1 search behavior
+- Namespaced away from future timeline and relationship controls
+
+---
+
+## Browsing Flow
+
+The entity list now follows this derived-result flow:
+
+```txt
+entities → search → type filter → tag filter → sort → render
+```
+
+This keeps original entity data untouched while rendering the currently visible entity results.
+
+---
+
+## Supported Controls
+
+### Search
+
+Search supports:
+
+- Entity name
+- Entity type
+- Entity summary
+- Entity description
+- Entity notes
+- Entity tags
+
+## Type Filter
+
+Type filtering supports current app entity types, including:
 
 - Character
 - Location
 - Faction
 - Species
+- Religion
+- Language
 - Artifact
+- Organization
 - Culture
-- Other supported types already used by the app
+- Other
 
-The type filter should:
+## Tag Filter
 
-- Work with search.
-- Be easy to reset.
-- Not crash if an entity has a missing or unexpected type.
+Tag filtering uses the available tags from the current world’s entities.
 
-### 3. Add tag filtering
+### Sorting
 
-Add tag filtering based on tags present in the current world’s entities.
+Sorting supports:
 
-Tag filtering should:
-
-- Use available tags from the current world/entity data.
-- Work with search.
-- Work with type filtering.
-- Show selected tags clearly.
-- Allow users to clear selected tags.
-
-If multi-tag filtering is practical, support it. If not, keep the first implementation simple and document the limitation honestly.
-
-### 4. Add sorting controls
-
-Add a sorting control for the entity results.
-
-Supported sorts:
-
-- Alphabetical
-- Entity type
-- Recently updated, if supported
-
-Sorting should apply after search/filter logic.
-
-Recommended flow:
-
-```txt
-entities → search → filters → sort → render
-```
-
-Sorting should not mutate the original entity data unexpectedly.
-
-### 5. Add no-results state
-
-Add a clear no-results state when search/filter combinations hide all entities.
-
-The no-results state should:
-
-- Explain that no entities matched the current controls.
-- Offer a clear reset action.
-- Avoid looking like a broken or empty app.
-- Be separate from the true empty state for worlds with no entities.
-
-Suggested copy:
-
-```txt
-No entities match your current search or filters.
-```
-
-Suggested reset action:
-
-```txt
-Clear search and filters
-```
-
-### 6. Keep empty states distinct
-
-There should be a difference between:
-
-**1.** A world with no entities yet.
-
-**2.** A world with entities, but none matching active search/filter controls.
-
-This distinction helps users understand whether they need to create content or adjust controls.
-
----
+- Alphabetically
+- By type
+- Recently updated
 
 ## Acceptance Criteria
 
-- [ ] Users can filter entities by supported type.
-- [ ] Type filtering works with entity search.
-- [ ] Users can filter entities by tag.
-- [ ] Tag filtering works with search.
-- [ ] Tag filtering works with type filtering.
-- [ ] Selected filters are understandable to the user.
-- [ ] Users can clear active filters.
-- [ ] Users can sort entities alphabetically.
-- [ ] Users can sort entities by type.
-- [ ] Users can sort entities by recently updated if supported by the data.
-- [ ] Sorting applies to the currently searched/filtered result set.
-- [ ] Sorting does not corrupt or mutate source entity data.
-- [ ] No-results state appears when active controls hide all entities.
-- [ ] No-results state includes a reset option.
-- [ ] True empty-world/entity state remains separate from no-results state.
+- [x] Users can filter entities by supported type.
+- [x] Type filtering works with entity search.
+- [x] Users can filter entities by tag.
+- [x] Tag filtering works with search.
+- [x] Tag filtering works with type filtering.
+- [x] Selected filters are understandable to the user.
+- [x] Users can clear active filters.
+- [x] Users can sort entities alphabetically.
+- [x] Users can sort entities by type.
+- [x] Users can sort entities by recently updated.
+- [x] Sorting applies to the currently searched/filtered result set.
+- [x] Sorting does not corrupt or mutate source entity data.
+- [x] No-results state appears when active controls hide all entities.
+- [x] No-results state includes a reset option.
+- [x] True empty-world/entity state remains separate from no-results state.
+- [x] Active controls are preserved through URL query parameters.
 
 ---
 
@@ -165,28 +164,29 @@ This distinction helps users understand whether they need to create content or a
 
 ### Local Verification
 
-- [ ] Run frontend build/typecheck.
-- [ ] Run available frontend tests.
-- [ ] Load a world with multiple entity types.
-- [ ] Filter by character.
-- [ ] Filter by location.
-- [ ] Filter by faction.
-- [ ] Filter by species, artifact, culture, or other supported types if available.
-- [ ] Clear type filter.
-- [ ] Filter by tag.
-- [ ] Clear tag filter.
-- [ ] Search + type filter combined passes.
-- [ ] Search + tag filter combined passes.
-- [ ] Type + tag filter combined passes.
-- [ ] Search + type + tag combined passes if supported.
-- [ ] Sort alphabetically.
-- [ ] Sort by entity type.
-- [ ] Sort by recently updated if supported.
-- [ ] Confirm sorting applies after search/filter controls.
-- [ ] Trigger no-results state.
-- [ ] Use reset control from no-results state.
-- [ ] Confirm true empty entity state still works for a world with no entities.
-- [ ] Confirm no obvious console errors appear.
+- [x] Run frontend build/typecheck.
+- [x] Load a world with multiple entity types.
+- [x] Filter by character.
+- [x] Filter by location.
+- [x] Filter by faction.
+- [x] Filter by species, artifact, culture, or other supported types if available.
+- [x] Clear type filter.
+- [x] Filter by tag.
+- [x] Clear tag filter.
+- [x] Search + type filter combined passes.
+- [x] Search + tag filter combined passes.
+- [x] Type + tag filter combined passes.
+- [x] Search + type + tag combined passes if supported.
+- [x] Sort alphabetically.
+- [x] Sort by entity type.
+- [x] Sort by recently updated.
+- [x] Confirm sorting applies after search/filter controls.
+- [x] Trigger no-results state.
+- [x] Use reset control from no-results state.
+- [x] Confirm true empty entity state still works for a world with no entities.
+- [x] Confirm URL updates with `entityType`, `entityTag`, and `entitySort`.
+- [x] Refresh with active controls and confirm expected state remains.
+- [x] Confirm no obvious console errors appear.
 
 ### Production/Hosted Verification
 
@@ -199,6 +199,7 @@ Complete after merge/deploy if applicable:
 - [ ] Entity sorting works in production.
 - [ ] No-results state works in production.
 - [ ] Reset controls work in production.
+- [ ] Refresh with active controls works in production.
 - [ ] No obvious production console errors appear.
 
 ---
@@ -212,30 +213,59 @@ Complete after merge/deploy if applicable:
 - Relationship Graph work
 - Import/export work
 - Public sharing work
+- Major redesign of the entity browsing layout
 
 ---
 
 ## Risks / Notes
 
-- Tag filtering may need normalization if tags are stored inconsistently.
-- Recently updated sorting should only be included if reliable timestamp data is available.
+- Tag filtering depends on the current entity tag response shape.
+- Recently updated sorting depends on reliable `updatedAt` values.
 - Too many controls can clutter the UI, especially on mobile.
-- Search/filter/sort state should remain understandable and resettable.
+- Sprint 3 should review responsive layout and accessibility now that all controls are present.
+- Future timeline search/filtering should use separately named query params to avoid collisions with entity controls.
 
 ---
 
 ## Completion Notes
 
-To be completed after Sprint 2 work is finished.
-
 ### Summary
 
-- TBD
+Sprint 2 is complete.
+
+The entity browsing experience now supports type filtering, tag filtering, sorting, combined search/filter/sort behavior, active-control reset behavior, and clear no-results messaging.
+
+The implementation builds directly on Sprint 1’s query-param pattern by adding:
+
+- `entityType`
+- `entityTag`
+- `entitySort`
+
+This makes the entity browsing experience more useful for larger fictional worlds while keeping the state refresh-safe and predictable.
 
 ### Verification Results
 
-- TBD
+Manual smoke testing passed.
+
+Verified:
+
+- Type filter passed.
+- Tag filter passed.
+- Search + type filter combined passed.
+- Search + tag filter combined passed.
+- Type + tag filter combined passed.
+- Search + type + tag combined passed.
+- Alphabetical sort passed.
+- Type sort passed.
+- Recently updated sort passed.
+- No-results state appeared for unmatched controls.
+- Clear search and filters restored the full entity list.
+- URL updated with entityType, entityTag, and entitySort.
+- Refresh kept active controls as expected.
+- No obvious console errors appeared during normal filtering/sorting usage.
 
 ### Follow-Up Items
 
-- TBD
+- Sprint 3 should review accessibility for all new controls.
+- Sprint 3 should review responsive layout now that search, filters, sorting, and reset controls are all present.
+- Sprint 3 should complete final v1.1 documentation, changelog, release notes, and production verification.

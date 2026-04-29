@@ -4,7 +4,7 @@
 
 Add the core entity search experience for Worldbuilding Codex v1.1 and make entity browsing state predictable while users move through a world.
 
-This sprint establishes the foundation for the v1.1 Entity Search & Filtering release by allowing users to search entities and by deciding how search/filter/sort state should persist during world browsing.
+This sprint establishes the foundation for the v1.1 Entity Search & Filtering release by allowing users to search entities and by preserving search state through URL query parameters.
 
 ---
 
@@ -28,6 +28,7 @@ Sprint 1 covers the first layer of that work: search and browsing state.
 - Add entity search to the entity browsing experience.
 - Search across entity:
   - Name
+  - Type
   - Summary
   - Description
   - Notes
@@ -36,115 +37,86 @@ Sprint 1 covers the first layer of that work: search and browsing state.
 - Support partial matches.
 - Add a clear/reset search action.
 - Preserve search state while browsing within the same world.
-- Decide whether entity browsing state should be stored in:
-  - Local component state
-  - Route/search params
-  - A shared helper/state utility
-- Prefer URL query params if practical, so refresh and browser navigation behave predictably.
+- Store entity search state in URL query params using `entitySearch`.
+- Confirm refresh behavior keeps the active search state.
 
 ---
 
 ## Linked Issues
 
-- [ ] Add entity search
-- [ ] Preserve entity search/filter state while browsing
+- [x] Add entity search
+- [x] Preserve entity search/filter state while browsing
 
 ---
 
-## Implementation Plan
+## Implementation Summary
 
-### 1. Review current entity list flow
+Sprint 1 added the core entity search experience to the world detail entity list.
 
-Before implementing, review:
+Implemented work includes:
 
-- Where entities are loaded
-- Where the entity list is rendered
-- How entity cards/list items are structured
-- Whether the world detail page already owns the entity list state
-- Whether entity list state should move into route/search params
+- Added a search input to the entity browsing section.
+- Added entity search matching for:
+  - Entity name
+  - Entity type
+  - Entity summary
+  - Entity description
+  - Entity notes
+  - Entity tags
+- Added case-insensitive search behavior.
+- Added partial-match support.
+- Added a clear search action.
+- Preserved entity search state in the URL with the `entitySearch` query parameter.
+- Added search result feedback for active searches.
+- Added no-match messaging when a search hides all entities.
+- Confirmed refresh behavior preserves active search state.
 
-### 2. Add search input
+---
 
-Add a search control near the entity list.
+## Query Param Behavior
 
-The search input should:
-
-- Have a clear visible label or accessible label.
-- Use a controlled value.
-- Update visible results as the user types.
-- Be easy to clear.
-
-Suggested placeholder:
+Sprint 1 introduced the following query parameter:
 
 ```txt
-Search entities...
+entitySearch
 ```
 
-### 3. Build search matching logic
-
-Search should check:
-- `name`
-- `summary`
-- `description`
-- `notes`
-- `tags`
-
-Search should be:
-- Case-insensitive
-- Whitespace-tolerant
-- Safe when optional fields are missing
-- Safe when tags are empty or undefined
-
-### 4. Add clear/reset behavior
-
-Users should be able to clear the search and return to the full entity list.
-
-Clear behavior should:
-
-- Reset the search input.
-- Restore all matching entities.
-- Preserve any unrelated state only if that state still makes sense.
-
-### 5. Preserve browsing state
-
-Search state should not reset unnecessarily while the user is still browsing within the same world.
-
-Preferred behavior:
-
-- Search persists while navigating within the world detail/entity browsing flow.
-- Search resets when switching to a different world.
-- Refresh behavior is predictable.
-- Back/forward behavior is not confusing.
-
-If URL params are used, possible format:
+Example:
 
 ```txt
-/worlds/:worldId?search=empire
+/worlds/:worldId?entitySearch=empire
 ```
 
-Or, if entities have a dedicated nested route:
+This keeps entity search state:
+
+- Refresh-safe
+- Browser-navigation friendly
+- Easy to extend in Sprint 2
+- Namespaced away from future timeline or relationship search params
+
+Future entity browsing params can build on the same pattern:
 
 ```txt
-/worlds/:worldId/entities?search=empire
+/worlds/:worldId?entitySearch=empire&entityType=FACTION&entityTag=royalty&entitySort=name
 ```
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] Users can search entities within a world.
-- [ ] Search checks entity name.
-- [ ] Search checks entity summary.
-- [ ] Search checks entity description.
-- [ ] Search checks entity notes.
-- [ ] Search checks entity tags.
-- [ ] Search is case-insensitive.
-- [ ] Partial matches work.
-- [ ] Empty or missing optional fields do not crash search.
-- [ ] Clearing search restores the full entity list.
-- [ ] Search state does not reset unnecessarily during normal world browsing.
-- [ ] Switching worlds does not accidentally carry unrelated search state into another world.
-- [ ] Refresh behavior is predictable and does not crash.
+- [x] Users can search entities within a world.
+- [x] Search checks entity name.
+- [x] Search checks entity summary.
+- [x] Search checks entity description.
+- [x] Search checks entity notes.
+- [x] Search checks entity tags.
+- [x] Search is case-insensitive.
+- [x] Partial matches work.
+- [x] Empty or missing optional fields do not crash search.
+- [x] Clearing search restores the full entity list.
+- [x] Search state does not reset unnecessarily during normal world browsing.
+- [x] Refresh behavior is predictable and does not crash.
+- [x] Active search state is preserved through the `entitySearch` URL query parameter.
 
 ---
 
@@ -152,22 +124,22 @@ Or, if entities have a dedicated nested route:
 
 ### Local Verification
 
-- [ ] Run frontend build/typecheck.
-- [ ] Run available frontend tests.
-- [ ] Load a world with multiple entities.
-- [ ] Search by entity name.
-- [ ] Search by summary.
-- [ ] Search by description.
-- [ ] Search by notes.
-- [ ] Search by tag.
-- [ ] Search with lowercase text.
-- [ ] Search with uppercase text.
-- [ ] Search with partial text.
-- [ ] Clear search and confirm full list returns.
-- [ ] Navigate within the same world and confirm search behavior is predictable.
-- [ ] Switch worlds and confirm search does not incorrectly carry over.
-- [ ] Refresh with active search if URL params are implemented.
-- [ ] Confirm no obvious console errors appear.
+- [x] Run frontend build/typecheck.
+- [x] Load a world with multiple entities.
+- [x] Search by entity name.
+- [x] Search by entity type.
+- [x] Search by summary.
+- [x] Search by description.
+- [x] Search by notes.
+- [x] Search by tag.
+- [x] Search with lowercase text.
+- [x] Search with uppercase text.
+- [x] Search with partial text.
+- [x] Clear search and confirm full list returns.
+- [x] Confirm URL updates with `?entitySearch=...`.
+- [x] Refresh with active search and confirm expected state remains.
+- [x] Trigger a no-match search and confirm clear messaging appears.
+- [x] Confirm no obvious console errors appear.
 
 ### Production/Hosted Verification
 
@@ -195,10 +167,10 @@ Complete after merge/deploy if applicable:
 ---
 
 ## Risks / Notes
-- If entity fields are inconsistent or optional, search logic should defensively handle missing values.
-- If tags are stored differently across frontend/backend responses, tag search may need normalization.
-- If URL params are introduced, make sure the implementation does not make routing unnecessarily complex.
-- Avoid overbuilding advanced fuzzy search in this sprint.
+- Entity search logic should continue to defensively handle optional fields.
+- Tag search depends on the current entity tag response shape.
+- URL query params should stay namespaced to avoid conflicts with future timeline search/filtering.
+- Advanced fuzzy search was intentionally left out of v1.1.
 
 ---
 
@@ -208,12 +180,37 @@ To be completed after Sprint 1 work is finished.
 
 ### Summary
 
-- TBD
+Sprint 1 is complete.
+
+The entity list now supports a search-first browsing experience. Users can search across entity names, types, summaries, descriptions, notes, and tags. Search is case-insensitive, supports partial matches, and persists through the entitySearch URL query parameter.
+
+The implementation also added a clear search action and search feedback messaging so users understand when results are being filtered.
 
 ### Verification Results
 
-- TBD
+Manual smoke testing passed.
+
+Verified:
+
+- Search by entity name passed.
+- Search by entity type passed.
+- Search by summary passed.
+- Search by description passed.
+- Search by notes passed.
+- Search by tag passed.
+- Lowercase search passed.
+- Uppercase search passed.
+- Partial search passed.
+- Clear search restored the full entity list.
+- URL updated with `?entitySearch=....`
+- Refresh with active search kept expected search state.
+- No-match search displayed a clear message.
+- No obvious console errors appeared during normal search usage.
 
 ### Follow-Up Items
 
-- TBD
+- Sprint 2 should build on the same query-param pattern for entity type filtering, tag filtering, and sorting.
+- Future entity browsing params should stay namespaced, such as:
+  - `entityType`
+  - `entityTag`
+  - `entitySort`
