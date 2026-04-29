@@ -47,29 +47,38 @@ Released: Apr 2026
 
 ---
 
-## 👨🏻‍💻 Version 1.1 — Entity Search & Filtering
+## ✅ Version 1.1 — Entity Search & Filtering
 
-**Status:** Planned  
-**Planned:** After v1.0
-
-### Goal
-
-Make large fictional worlds easier to browse by adding search, filtering, sorting, and stronger empty states to the entity list.
+**Focus:** Improve entity browsing for larger fictional worlds by adding search, filtering, sorting, no-results guidance, and accessibility/responsive polish.
 
 ### Scope
 
-- [ ] Add entity search
-  - **AC:** Users can search by name, summary, description, notes, and tags.
-- [ ] Add type filtering
+- Add entity search
+  - **AC:** Users can search by name, type, summary, description, notes, and tags.
+- Add type filtering
   - **AC:** Users can filter entities by character, location, faction, species, artifact, culture, and other supported types.
-- [ ] Add tag filtering
-  - **AC:** Users can filter entities by one or more tags.
-- [ ] Add sorting controls
+- Add tag filtering
+  - **AC:** Users can filter entities by tag.
+- Add sorting controls
   - **AC:** Users can sort alphabetically, by entity type, or by recently updated.
-- [ ] Add no-results empty state
+- Add no-results empty state
   - **AC:** Empty search/filter results explain what happened and offer a clear reset option.
-- [ ] Preserve search/filter state during world browsing
-  - **AC:** Search and filter choices do not reset unnecessarily while navigating within the world detail flow.
+- Preserve search/filter/sort state during world browsing
+  - **AC:** Entity browsing controls persist through URL query parameters and remain refresh-safe.
+- Polish accessibility and responsive layout
+  - **AC:** Search, filter, sort, and reset controls are labelled, keyboard reachable, focus-visible, and usable on desktop and mobile.
+
+### Notes
+
+- v1.1 builds on the stable v1.0 core workflow by making larger worlds easier to browse.
+- Entity browsing state is preserved with namespaced URL parameters:
+  - `entitySearch`
+  - `entityType`
+  - `entityTag`
+  - `entitySort`
+- Advanced fuzzy search and saved entity views remain future improvement ideas.
+
+Released: Apr 2026
 
 ---
 

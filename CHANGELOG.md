@@ -6,6 +6,41 @@ The format is inspired by *Keep a Changelog*, with concise milestone-based entri
 
 ---
 
+## [v1.1.0] — Entity Search & Filtering (2026-04-29)
+
+### Added
+
+- Added entity search for names, types, summaries, descriptions, notes, and tags.
+- Added entity type filtering for supported lore entity categories.
+- Added entity tag filtering based on tags available in the current world.
+- Added entity sorting by name, type, and recently updated.
+- Added URL-persisted entity browsing controls with `entitySearch`, `entityType`, `entityTag`, and `entitySort`.
+- Added no-results guidance when active search/filter controls hide all entities.
+- Added a clear action for resetting entity search, filters, and sorting.
+- Added screen-reader-only result count updates for entity browsing.
+- Added an entity browsing search/filter screenshot to document the v1.1 workflow.
+
+### Changed
+
+- Improved the world detail entity list into a more complete browsing experience for larger fictional worlds.
+- Improved entity result feedback so users can see when controls are affecting the visible list.
+- Improved reset button copy for clearer intent.
+- Improved entity browsing accessibility with labelled controls, helper text, and keyboard-friendly interactions.
+- Improved responsive behavior for the entity browsing controls.
+- Updated README documentation to reflect v1.1 entity browsing improvements.
+
+### Removed
+
+- Removed the limitation where entity browsing only displayed an unfiltered list.
+
+### Notes
+
+- v1.1 keeps the release focused on entity browsing rather than expanding into timeline or relationship graph work.
+- Timeline Explorer remains planned for v1.2.
+- Manual local smoke testing passed for search, filters, sorting, no-results states, reset behavior, URL persistence, keyboard usability, responsive layout, screenshot documentation, and console-error checks.
+
+---
+
 ## [1.0.0] - Stable Portfolio Release (2026-04-27)
 
 ### Added
