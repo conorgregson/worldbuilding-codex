@@ -141,16 +141,19 @@ Future entity browsing params can build on the same pattern:
 - [x] Trigger a no-match search and confirm clear messaging appears.
 - [x] Confirm no obvious console errors appear.
 
-### Production/Hosted Verification
+### Production Verification
 
-Complete after merge/deploy if applicable:
+Complete after merge/deploy:
 
-- [ ] Hosted frontend loads successfully.
-- [ ] Login/authenticated flow still works.
-- [ ] World detail page loads.
-- [ ] Entity search works in production.
-- [ ] Refresh behavior works in production.
-- [ ] No obvious production console errors appear.
+- [x] Hosted frontend loads successfully.
+- [x] Login/authenticated flow works.
+- [x] World detail page loads.
+- [x] Entity search works in production.
+- [x] Entity filtering works in production.
+- [x] Entity sorting works in production.
+- [x] No-results/reset states work in production.
+- [x] Refresh behavior works in production.
+- [x] No obvious production console errors appear.
 
 ---
 

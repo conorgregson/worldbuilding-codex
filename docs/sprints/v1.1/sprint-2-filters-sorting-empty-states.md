@@ -188,19 +188,19 @@ Sorting supports:
 - [x] Refresh with active controls and confirm expected state remains.
 - [x] Confirm no obvious console errors appear.
 
-### Production/Hosted Verification
+### Production Verification
 
-Complete after merge/deploy if applicable:
+Complete after merge/deploy:
 
-- [ ] Hosted frontend loads successfully.
-- [ ] World detail page loads.
-- [ ] Entity type filtering works in production.
-- [ ] Entity tag filtering works in production.
-- [ ] Entity sorting works in production.
-- [ ] No-results state works in production.
-- [ ] Reset controls work in production.
-- [ ] Refresh with active controls works in production.
-- [ ] No obvious production console errors appear.
+- [x] Hosted frontend loads successfully.
+- [x] Login/authenticated flow works.
+- [x] World detail page loads.
+- [x] Entity search works in production.
+- [x] Entity filtering works in production.
+- [x] Entity sorting works in production.
+- [x] No-results/reset states work in production.
+- [x] Refresh behavior works in production.
+- [x] No obvious production console errors appear.
 
 ---
 

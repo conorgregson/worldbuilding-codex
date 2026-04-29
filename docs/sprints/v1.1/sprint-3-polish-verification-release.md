@@ -181,15 +181,15 @@ Confirmed behavior:
 
 Complete after merge/deploy:
 
-- [ ] Hosted frontend loads successfully.
-- [ ] Login/authenticated flow works.
-- [ ] World detail page loads.
-- [ ] Entity search works in production.
-- [ ] Entity filtering works in production.
-- [ ] Entity sorting works in production.
-- [ ] No-results/reset states work in production.
-- [ ] Refresh behavior works in production.
-- [ ] No obvious production console errors appear.
+- [x] Hosted frontend loads successfully.
+- [x] Login/authenticated flow works.
+- [x] World detail page loads.
+- [x] Entity search works in production.
+- [x] Entity filtering works in production.
+- [x] Entity sorting works in production.
+- [x] No-results/reset states work in production.
+- [x] Refresh behavior works in production.
+- [x] No obvious production console errors appear.
 
 ---
 
@@ -242,6 +242,20 @@ Verified:
 - Desktop layout passed.
 - Mobile layout passed.
 - No obvious console errors appeared.
+
+Production verification also passed.
+
+Verified:
+
+- Hosted frontend loaded successfully.
+- Login/authenticated flow worked.
+- World detail page loaded.
+- Entity search worked in production.
+- Entity filtering worked in production.
+- Entity sorting worked in production.
+- No-results/reset states worked in production.
+- Refresh behavior worked in production.
+- No obvious production console errors appeared.
 
 ### Documentation Updated
 
