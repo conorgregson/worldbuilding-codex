@@ -16,58 +16,41 @@ This roadmap tracks the project from its first stable portfolio release into fut
 
 ---
 
-## ✅ v1.0.0 — Stable Portfolio Release
+## ✅ Version 1.0 — Stable Portfolio Release
 
-**Status:** In progress  
-**Planned:** April 2026
-
-### Goal
-
-Finalize Worldbuilding Codex as a stable public portfolio release with the core lore-management workflow complete, deployed, documented, and verified.
+**Focus:** Finalize Worldbuilding Codex as a stable public portfolio release with the core lore-management workflow complete, deployed, documented, and verified.
 
 ### Scope
 
-- [ ] Confirm live frontend loads successfully
-  - **AC:** The deployed Vercel app opens without console-blocking errors.
-- [ ] Confirm backend health endpoint is reachable
-  - **AC:** Render `/health` or equivalent health route returns a successful response.
-- [ ] Confirm authentication works in production
-  - **AC:** Users can register, log in, stay authenticated, and log out on the hosted app.
-- [ ] Confirm protected routing works
-  - **AC:** Auth-only pages are protected and route correctly after login/logout.
-- [ ] Confirm worlds CRUD works
-  - **AC:** Users can create, view, edit, and delete worlds.
-- [ ] Confirm entities CRUD works
-  - **AC:** Users can create, view, edit, and delete entities inside a world.
-- [ ] Confirm relationship workflow works
-  - **AC:** Users can create, view, and delete typed relationships between entities in the same world.
-- [ ] Confirm timeline workflow works
-  - **AC:** Users can create, view, edit, and delete timeline events.
-- [ ] Confirm event participants work
-  - **AC:** Users can attach entities to events with optional role labels.
-- [ ] Confirm route refresh behavior works
-  - **AC:** Refreshing hosted client routes such as `/worlds` does not produce a 404.
-- [ ] Resolve favicon issue or remove unused favicon reference
-  - **AC:** The hosted app no longer shows a missing favicon request unless intentionally deferred.
-- [ ] Review README for v1.0 positioning
-  - **AC:** README presents the app as a stable full-stack portfolio project with clear features, setup, deployment, screenshots, and roadmap.
-- [ ] Update changelog for v1.0.0
-  - **AC:** `CHANGELOG.md` includes a stable portfolio release entry.
-- [ ] Create GitHub release notes
-  - **AC:** Release notes summarize highlights, core workflows, deployment status, and future roadmap.
-- [ ] Tag release as `v1.0.0`
-  - **AC:** GitHub has a `v1.0.0` release/tag after final verification.
+- Confirm live frontend loads successfully
+- Confirm backend health endpoint is reachable
+- Confirm authentication works in production
+- Confirm protected routing works
+- Confirm worlds CRUD works
+- Confirm entities CRUD works
+- Confirm relationship workflow works
+- Confirm timeline workflow works
+- Confirm event participants work
+- Confirm route refresh behavior works
+- Resolve favicon issue or remove unused favicon reference
+- Review README for v1.0 positioning
+- Update changelog for v1.0.0
+- Create GitHub release notes
+- Tag release as `v1.0.0`
 
 ### Notes
 
-v1.0.0 should not introduce a major new feature. It should promote the existing complete, deployed, and documented core workflow into the first stable public release.
+- v1.0 does not introduce a major new feature
+- This releaseld promotes the existing complete, deployed, and documented core workflow into the first stable public release.
+
+Released: Apr 2026
 
 ---
 
-## 👨🏻‍💻 v1.1.0 — Entity Search & Filtering
+## 👨🏻‍💻 Version 1.1 — Entity Search & Filtering
 
 **Status:** Planned  
-**Planned:** After v1.0.0
+**Planned:** After v1.0
 
 ### Goal
 
@@ -90,7 +73,7 @@ Make large fictional worlds easier to browse by adding search, filtering, sortin
 
 ---
 
-## 🚀 v1.2.0 — Timeline Explorer
+## 🚀 Version 1.2 — Timeline Explorer
 
 **Status:** Planned
 
@@ -113,7 +96,7 @@ Turn existing event tracking into a dedicated timeline browsing experience.
 
 ---
 
-## 🌐 v1.3.0 — Relationship Graph
+## 🌐 Version 1.3 — Relationship Graph
 
 **Status:** Planned
 
@@ -136,7 +119,7 @@ Add a visual graph view that helps users explore connected lore through entity r
 
 ---
 
-## 🔑 v1.4.0 — World Import & Export
+## 🔑 Version 1.4 — World Import & Export
 
 **Status:** Planned
 
@@ -159,7 +142,7 @@ Give users safer ownership over their data by allowing world-level backup, expor
 
 ---
 
-## 🎨 v1.5.0 — Public World Sharing
+## 🎨 Version 1.5 — Public World Sharing
 
 **Status:** Planned
 
