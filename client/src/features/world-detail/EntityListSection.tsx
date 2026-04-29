@@ -11,6 +11,9 @@ const ENTITY_TYPE_PARAM = "entityType";
 const ENTITY_TAG_PARAM = "entityTag";
 const ENTITY_SORT_PARAM = "entitySort";
 
+const ENTITY_SEARCH_HELP_ID = "entity-search-help";
+const ENTITY_RESULTS_HEADING_ID = "entity-results-heading";
+
 const ENTITY_TYPES: EntityType[] = [
   "CHARACTER",
   "LOCATION",
@@ -203,16 +206,23 @@ export function EntityListSection({
   }
 
   return (
-    <div className="page-section-stack">
+    <section
+      className="page-section-stack"
+      aria-labelledby={ENTITY_RESULTS_HEADING_ID}
+    >
       <div className="section-heading">
-        <h2>Entities</h2>
+        <h2 id={ENTITY_RESULTS_HEADING_ID}>Entities</h2>
         <p>
           Browse the people, places, factions, artifacts, and cultures in this
           world.
         </p>
       </div>
 
-      <div className="form-stack" role="search" aria-label="Entity browsing controls">
+      <div
+        className="form-stack"
+        role="search"
+        aria-label="Entity browsing controls"
+      >
         <label className="form-field">
           <span>Search entities</span>
           <Input
@@ -222,8 +232,14 @@ export function EntityListSection({
               updateEntityParam(ENTITY_SEARCH_PARAM, event.target.value)
             }
             placeholder="Search by name, summary, description, notes, or tag"
+            aria-describedby={ENTITY_SEARCH_HELP_ID}
           />
         </label>
+
+        <p id={ENTITY_SEARCH_HELP_ID} className="muted-text-reset">
+          Search checks entity names, types, summaries, descriptions, notes, and
+          tags.
+        </p>
 
         <label className="form-field">
           <span>Filter by type</span>
@@ -276,8 +292,12 @@ export function EntityListSection({
 
         {hasActiveControls ? (
           <div className="form-actions">
-            <Button type="button" variant="secondary" onClick={resetEntityControls}>
-              Clear search and filters
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={resetEntityControls}
+            >
+              Clear entity search, filters, and sorting
             </Button>
           </div>
         ) : null}
@@ -307,6 +327,20 @@ export function EntityListSection({
         </StatusMessage>
       ) : null}
 
+      {!isLoading && !errorMessage && hasEntities && !hasActiveControls ? (
+        <StatusMessage variant="muted">
+          Showing all {getEntityResultLabel(visibleEntities.length)}.
+        </StatusMessage>
+      ) : null}
+
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
+        {hasEntities
+          ? `${getEntityResultLabel(
+              visibleEntities.length
+            )} currently shown.`
+          : "No entities currently shown."}
+      </div>
+
       {!isLoading &&
         !errorMessage &&
         hasEntities &&
@@ -315,7 +349,9 @@ export function EntityListSection({
             <div className="card-content-stack">
               <h3 className="text-reset">
                 <Link to={`/entities/${entity.id}`}>{entity.name}</Link>{" "}
-                <span className="muted-text">({formatEntityType(entity.type)})</span>
+                <span className="muted-text">
+                  ({formatEntityType(entity.type)})
+                </span>
               </h3>
 
               <p className="text-reset">{entity.summary ?? "No summary."}</p>
@@ -329,6 +365,6 @@ export function EntityListSection({
             </div>
           </Card>
         ))}
-    </div>
+    </section>
   );
 }
