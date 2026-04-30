@@ -146,43 +146,68 @@ Recommended README updates:
 
 ### Core Timeline Flow
 
-- [ ] Log in successfully.
-- [ ] Open a world.
-- [ ] Navigate to the dedicated timeline page.
-- [ ] Confirm events render in chronological order.
-- [ ] Confirm participant names appear on relevant events.
-- [ ] Confirm role labels appear where available.
-- [ ] Confirm events without participants render cleanly.
-- [ ] Confirm participant/entity links work where supported.
+- [x] Log in successfully.
+- [x] Open a world.
+- [x] Navigate to the dedicated timeline page.
+- [x] Confirm events render in chronological order.
+- [x] Confirm participant names appear on relevant events.
+- [x] Confirm role labels appear where available.
+- [x] Confirm entity type appears on participant chips.
+- [x] Confirm events without participants render cleanly.
+- [x] Confirm participant/entity links work where supported.
 
 ### Search, Filter & Empty States
 
-- [ ] Search by title.
-- [ ] Search by summary.
-- [ ] Search by description.
-- [ ] Search by participant.
-- [ ] Apply each timeline filter.
-- [ ] Combine search and filters.
-- [ ] Confirm reset clears timeline controls.
-- [ ] Confirm no-results state is clear and actionable.
-- [ ] Confirm empty timeline state is clear and actionable.
+- [x] Search by title.
+- [x] Search by summary.
+- [x] Search by description.
+- [x] Search by participant name.
+- [x] Search by participant type.
+- [x] Search by participant role label.
+- [x] Apply date status filter.
+- [x] Apply participant status filter.
+- [x] Combine search and filters.
+- [x] Confirm chronological order remains stable after filtering.
+- [x] Confirm reset clears timeline controls.
+- [x] Confirm no-results state is clear and actionable.
+- [x] Confirm empty timeline state is clear and actionable.
 
 ### Refresh & Routing
 
-- [ ] Refresh the dedicated timeline route.
-- [ ] Confirm active URL query state persists.
-- [ ] Confirm invalid world route is handled safely.
-- [ ] Confirm protected routing still works.
+- [x] Refresh the dedicated timeline route.
+- [x] Confirm active URL query state persists.
+- [x] Confirm browser back/forward behavior works with timeline query state.
+- [x] Confirm invalid or missing world route is handled safely.
+- [x] Confirm protected routing still works.
 
 ### Accessibility & Responsive
 
-- [ ] Navigate controls using keyboard only.
-- [ ] Confirm visible focus states.
-- [ ] Confirm labels are clear.
-- [ ] Test desktop layout.
-- [ ] Test mobile layout.
-- [ ] Confirm no horizontal overflow.
-- [ ] Confirm no console errors during normal use.
+- [x] Navigate controls using keyboard only.
+- [x] Confirm visible focus states.
+- [x] Confirm search input has a visible label.
+- [x] Confirm search helper text is connected with `aria-describedby`.
+- [x] Confirm filter selects have visible labels.
+- [x] Confirm reset button is keyboard reachable.
+- [x] Confirm Back to world link is keyboard reachable.
+- [x] Confirm participant links are keyboard reachable.
+- [x] Confirm result count updates are available through the live region.
+- [x] Confirm heading structure is logical.
+- [x] Confirm buttons and links have clear accessible names.
+- [x] Test desktop layout.
+- [x] Test tablet/narrow layout.
+- [x] Test mobile layout.
+- [x] Confirm timeline controls stack cleanly.
+- [x] Confirm event cards do not overflow.
+- [x] Confirm meta pills wrap cleanly.
+- [x] Confirm participant chips/lists wrap cleanly.
+- [x] Confirm long event titles do not break layout.
+- [x] Confirm long participant names do not overflow.
+- [x] Confirm no horizontal overflow.
+- [x] Confirm no major console errors during normal use.
+
+### Build / Local Verification
+
+- [x] Client build passes.
 
 ### Production Verification
 
@@ -193,7 +218,7 @@ Recommended README updates:
 - [ ] Timeline search/filtering works in production.
 - [ ] Timeline participant display works in production.
 - [ ] Backend health endpoint is reachable.
-- [ ] No major console errors appear in production.
+- [ ] No major production console errors appear.
 
 ---
 
@@ -215,11 +240,33 @@ Recommended README updates:
 
 ## Completion Notes
 
-_To be filled in after implementation._
+Sprint 3 local/manual verification was completed successfully against the checklist above. Production verification is pending until after the branch is pushed and deployed.
 
-- Branch:
-- PR:
+- Branch: `v1.2-timeline-explorer`
+- PR: Pending
+- Production verification: Pending after push/deploy
+
 - Tests run:
-- Manual verification:
-- Production verification:
+  - [x] Client build: passed
+
+- Manual verification summary:
+  - [x] Timeline Explorer core flow, search, filters, reset behavior, URL query state, and empty/no-results states passed local/manual testing.
+  - [x] Participant display polish passed local/manual testing, including participant names, entity type chips, role labels, links, and events without participants.
+  - [x] Accessibility and responsive checks passed locally, including keyboard navigation, visible focus states, labelled controls, live result count text, desktop/tablet/mobile layout, wrapping behavior, and no horizontal overflow.
+  - [x] No major console errors were found during local/manual testing.
+
+- Implementation notes:
+  - Added polished participant list display using `participant-list` and `participant-item`.
+  - Added participant entity type chips and role label text.
+  - Added `timeline-event-card` styling hook for clearer timeline card hierarchy.
+  - Preserved existing timeline search/filter URL query parameters:
+    - `timelineSearch`
+    - `timelineDateStatus`
+    - `timelineParticipantStatus`
+  - Preserved the world detail page timeline section as the event management area.
+  - Preserved the dedicated Timeline Explorer page as the focused browsing/search/filtering route.
+
 - Known follow-ups:
+  - Complete production verification after deployment.
+  - Update README, ROADMAP, CHANGELOG, PR description, merge message, and GitHub release notes for v1.2.
+  - Consider a future polish pass that turns the world detail timeline section into a shorter preview to reduce repetition with the dedicated Timeline Explorer page.
