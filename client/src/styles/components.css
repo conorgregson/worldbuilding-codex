@@ -286,3 +286,74 @@ select:disabled {
   border-radius: 999px;
   background: rgba(147, 197, 253, 0.35);
 }
+
+.relationship-graph-wrap {
+  width: 100%;
+  overflow-x: auto;
+  padding: 8px;
+}
+
+.relationship-graph {
+  display: block;
+  width: 100%;
+  min-width: 720px;
+  max-width: 100%;
+  min-height: 440px;
+}
+
+.relationship-graph marker path {
+  fill: rgba(147, 197, 253, 0.78);
+}
+
+.relationship-graph__edge line {
+  stroke: rgba(147, 197, 253, 0.58);
+  stroke-width: 2;
+}
+
+.relationship-graph__edge text {
+  fill: var(--color-text-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-anchor: middle;
+  paint-order: stroke;
+  stroke: var(--color-surface);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+
+.relationship-graph__node circle {
+  fill: rgba(37, 99, 235, 0.2);
+  stroke: rgba(147, 197, 253, 0.78);
+  stroke-width: 2;
+}
+
+.relationship-graph__node text {
+  fill: var(--color-text-strong);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+
+.relationship-graph__node-type {
+  fill: var(--color-text-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.relationship-graph-summary {
+  padding-top: 12px;
+  margin-top: 12px;
+  border-top: 1px solid rgba(69, 96, 127, 0.45);
+}
+
+@media (max-width: 760px) {
+  .relationship-graph-wrap {
+    margin-inline: -8px;
+  }
+
+  .relationship-graph {
+    min-width: 640px;
+  }
+}
