@@ -148,13 +148,17 @@ export default function WorldTimelinePage() {
       .filter((event) =>
         eventMatchesParticipantStatus(event, timelineParticipantStatus)
       );
-  }, [sortedEvents, timelineSearch, timelineDateStatus, timelineParticipantStatus]);
+  }, [
+    sortedEvents,
+    timelineSearch,
+    timelineDateStatus,
+    timelineParticipantStatus,
+  ]);
 
   const hasSearch = timelineSearch.trim().length > 0;
   const hasDateFilter = timelineDateStatus !== "all";
   const hasParticipantFilter = timelineParticipantStatus !== "all";
-  const hasActiveControls =
-    hasSearch || hasDateFilter || hasParticipantFilter;
+  const hasActiveControls = hasSearch || hasDateFilter || hasParticipantFilter;
 
   const hasEvents = sortedEvents.length > 0;
   const hasVisibleEvents = visibleEvents.length > 0;
@@ -307,7 +311,10 @@ export default function WorldTimelinePage() {
           </StatusMessage>
         ) : null}
 
-        {!eventsQuery.isLoading && !eventsQuery.error && hasEvents && hasActiveControls ? (
+        {!eventsQuery.isLoading &&
+        !eventsQuery.error &&
+        hasEvents &&
+        hasActiveControls ? (
           <StatusMessage variant={hasVisibleEvents ? "muted" : "error"}>
             {hasVisibleEvents
               ? `Showing ${getTimelineResultLabel(
@@ -317,7 +324,10 @@ export default function WorldTimelinePage() {
           </StatusMessage>
         ) : null}
 
-        {!eventsQuery.isLoading && !eventsQuery.error && hasEvents && !hasActiveControls ? (
+        {!eventsQuery.isLoading &&
+        !eventsQuery.error &&
+        hasEvents &&
+        !hasActiveControls ? (
           <StatusMessage variant="muted">
             Showing all {getTimelineResultLabel(visibleEvents.length)}.
           </StatusMessage>
@@ -333,7 +343,10 @@ export default function WorldTimelinePage() {
           !eventsQuery.error &&
           hasEvents &&
           visibleEvents.map((timelineEvent) => (
-            <Card key={timelineEvent.id} className="surface-card">
+            <Card
+              key={timelineEvent.id}
+              className="surface-card timeline-event-card"
+            >
               <div className="card-title-row">
                 <div>
                   <p className="muted-text-reset">
@@ -372,26 +385,35 @@ export default function WorldTimelinePage() {
               </div>
 
               <div className="divider-top card-content-stack">
-                <strong>Participants</strong>
+                <h3 className="subsection-title">Participants</h3>
 
                 {timelineEvent.participants.length === 0 ? (
-                  <StatusMessage variant="muted">No participants.</StatusMessage>
+                  <StatusMessage variant="muted">
+                    No participants attached.
+                  </StatusMessage>
                 ) : (
-                  <div className="page-subsection-stack">
+                  <ul
+                    className="participant-list"
+                    aria-label={`${timelineEvent.title} participants`}
+                  >
                     {timelineEvent.participants.map((participant) => (
-                      <p key={participant.id} className="text-reset">
+                      <li key={participant.id} className="participant-item">
                         <Link to={`/entities/${participant.entity.id}`}>
                           {participant.entity.name}
-                        </Link>{" "}
-                        <span className="muted-text">
-                          ({participant.entity.type})
+                        </Link>
+
+                        <span className="meta-pill">
+                          {participant.entity.type}
                         </span>
-                        {participant.roleLabel
-                          ? ` — ${participant.roleLabel}`
-                          : ""}
-                      </p>
+
+                        {participant.roleLabel ? (
+                          <span className="muted-text">
+                            {participant.roleLabel}
+                          </span>
+                        ) : null}
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 )}
               </div>
             </Card>
