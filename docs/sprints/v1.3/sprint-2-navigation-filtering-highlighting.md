@@ -43,15 +43,6 @@ Sprint 2 builds on that foundation by adding:
 
 ---
 
-## Linked Issues
-
-- [ ] Support graph navigation
-- [ ] Support relationship filtering
-- [ ] Highlight selected entities
-- [ ] Add graph no-results state
-
----
-
 ## Implementation Summary
 
 Sprint 2 will add interaction controls to the Relationship Graph.
@@ -103,20 +94,20 @@ If the implementation is simpler without URL state, graph filter state can remai
 
 ## Acceptance Criteria
 
-- [ ] Users can click an entity node.
-- [ ] Clicking an entity node opens the matching entity detail page.
-- [ ] Users can filter relationships by relationship type.
-- [ ] Users can reset the relationship type filter.
-- [ ] Filtering updates visible graph edges without crashing.
-- [ ] Filtering does not permanently remove graph data.
-- [ ] Selecting an entity highlights that entity.
-- [ ] Selecting an entity highlights incoming relationships.
-- [ ] Selecting an entity highlights outgoing relationships.
-- [ ] Users can clear the selected entity.
-- [ ] Empty filtered results show clear no-results messaging.
-- [ ] Graph controls are keyboard reachable.
-- [ ] Graph controls have accessible labels.
-- [ ] No obvious console errors appear during graph interaction.
+- [x] Users can click an entity node.
+- [x] Clicking an entity node opens the matching entity detail page.
+- [x] Users can filter relationships by relationship type.
+- [x] Users can reset the relationship type filter.
+- [x] Filtering updates visible graph edges without crashing.
+- [x] Filtering does not permanently remove graph data.
+- [x] Selecting an entity highlights that entity.
+- [x] Selecting an entity highlights incoming relationships.
+- [x] Selecting an entity highlights outgoing relationships.
+- [x] Users can clear the selected entity.
+- [x] Empty filtered results show clear no-results messaging.
+- [x] Graph controls are keyboard reachable.
+- [x] Graph controls have accessible labels.
+- [x] No obvious console errors appear during graph interaction.
 
 ---
 
@@ -124,27 +115,27 @@ If the implementation is simpler without URL state, graph filter state can remai
 
 ### Local Verification
 
-- [ ] Run frontend build/typecheck.
-- [ ] Load a world with multiple entities and relationship types.
-- [ ] Open the Relationship Graph page.
-- [ ] Click an entity node.
-- [ ] Confirm the matching entity detail page opens.
-- [ ] Return to the graph page.
-- [ ] Filter by one relationship type.
-- [ ] Confirm only matching relationship edges are shown.
-- [ ] Reset the relationship type filter.
-- [ ] Confirm all relationship edges return.
-- [ ] Select an entity.
-- [ ] Confirm the selected entity is visually highlighted.
-- [ ] Confirm incoming relationships are highlighted.
-- [ ] Confirm outgoing relationships are highlighted.
-- [ ] Clear the selected entity.
-- [ ] Confirm the graph returns to its default visual state.
-- [ ] Trigger a filter with no matching relationships if possible.
-- [ ] Confirm no-results messaging appears.
-- [ ] Confirm graph controls are keyboard reachable.
+- [x] Run frontend build.
+- [x] Load a world with multiple entities and relationship types.
+- [x] Open the Relationship Graph page.
+- [x] Click an entity node.
+- [x] Confirm the matching entity detail page opens.
+- [x] Return to the graph page.
+- [x] Filter by one relationship type.
+- [x] Confirm only matching relationship edges are shown.
+- [x] Reset the relationship type filter.
+- [x] Confirm all relationship edges return.
+- [x] Select an entity.
+- [x] Confirm the selected entity is visually highlighted.
+- [x] Confirm incoming relationships are highlighted.
+- [x] Confirm outgoing relationships are highlighted.
+- [x] Clear the selected entity.
+- [x] Confirm the graph returns to its default visual state.
+- [x] Trigger a filter with no matching relationships if possible.
+- [x] Confirm no-results messaging appears.
+- [x] Confirm graph controls are keyboard reachable.
 Confirm graph controls have visible focus states.
-- [ ] Confirm no obvious console errors appear.
+- [x] Confirm no obvious console errors appear.
 
 ### Production Verification
 
@@ -179,12 +170,16 @@ Complete after merge/deploy:
 
 ## Risks / Notes
 
-- Node navigation should not interfere with selection behavior.
-- If nodes are both clickable and selectable, the interaction pattern should be clear.
-- Relationship filtering should handle missing or inconsistent relationship types safely.
-- Highlighting should remain understandable without relying only on color.
-- Graph controls should not conflict with existing entity or timeline query params.
-- If graph query params are added, they should be namespaced with graph....
+- Node navigation was intentionally implemented through a separate “Open selected entity” link instead of navigating immediately on node click.
+- This makes the graph easier to use because selecting a node and navigating to an entity are separate actions.
+- Graph node selection supports mouse and keyboard input.
+- Highlighting does not rely only on color; selected and connected graph elements also use stroke width, opacity, and visual emphasis.
+- Relationship filtering safely derives filter options from available relationship data.
+- Graph filter and selection state are local for now.
+- If graph state needs to become refresh-safe later, future query params should use the graph... namespace.
+- The graph still fetches relationships per entity because there is not yet a world-level relationships endpoint.
+- A world-level relationship endpoint may be worth adding later if graph data grows large enough that per-entity relationship fetching becomes inefficient.
+- Sprint 3 should focus on final polish, accessibility review, responsive behavior, documentation, and release wrap-up.
 
 ---
 
@@ -194,28 +189,40 @@ To be completed after Sprint 2 work is finished.
 
 #### Summary
 
-Sprint 2 is pending.
+Sprint 2 is complete.
 
-The goal of this sprint is to make the Relationship Graph interactive by adding node navigation, relationship type filtering, selected entity highlighting, and incoming/outgoing relationship emphasis.
+The Relationship Graph is now interactive. Users can filter relationships by type, select graph nodes, highlight selected entities and their incoming/outgoing relationships, dim unrelated graph elements, clear selections, reset graph controls, and open the selected entity’s detail page.
+
+The graph controls were also polished so clear/reset buttons match the visual style of the rest of the app.
 
 ### Verification Results
 
-Manual smoke testing pending.
+Manual smoke testing passed.
 
-Verify:
+Verified:
 
-- Node navigation works.
+- Frontend build/typecheck passed.
+- Relationship Graph page loads locally.
 - Relationship type filtering works.
 - Filter reset works.
-- Selected entity highlighting works.
+- Selected node highlighting works.
 - Incoming relationship highlighting works.
 - Outgoing relationship highlighting works.
+- Connected nodes remain emphasized.
+- Unrelated nodes and edges dim correctly.
+- Selected entity status text appears.
+- “Open selected entity” navigates to the matching entity detail page.
 - Clear selection works.
-- No-results messaging works.
-- Keyboard navigation and focus states are acceptable.
-- No obvious console errors appear during graph interaction.
+- Reset graph controls works.
+- Filtered no-results messaging appears.
+- Keyboard selection with Enter and Space works on graph nodes.
+- Graph controls are keyboard reachable.
+- Graph controls have visible focus states.
+- Clear/reset buttons visually match the app’s secondary button style.
+- No obvious console errors appeared during graph interaction.
 
 ### Follow-Up Items
 
-- Sprint 3 should polish graph empty states, accessibility, responsive layout, documentation, screenshots, changelog, PR materials, and release notes.
-- Future graph improvements can consider graph search, saved graph views, advanced layout controls, or relationship editing from the graph.
+- Sprint 3 should polish final graph empty states, accessibility, responsive behavior, release documentation, screenshots, changelog, PR materials, and release notes.
+- Future graph improvements can consider graph search, saved graph views, graph URL query state, advanced layout controls, or relationship editing directly from the graph.
+- A future backend improvement could add a world-level relationships endpoint if graph performance becomes a concern.
