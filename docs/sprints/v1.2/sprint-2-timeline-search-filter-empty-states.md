@@ -157,36 +157,39 @@ Search behavior should be simple and predictable. Avoid fuzzy search for this sp
 
 ## Manual Verification Checklist
 
-- [ ] Timeline page loads.
-- [ ] Search by event title works.
-- [ ] Search by event summary works.
-- [ ] Search by event description works.
-- [ ] Search by participant name works.
-- [ ] Search by participant role label works.
-- [ ] Date status filter works.
-- [ ] Participant status filter works.
-- [ ] Search and filters combine correctly.
-- [ ] Chronological order remains stable after filtering.
-- [ ] URL updates with `timelineSearch`.
-- [ ] URL updates with `timelineDateStatus`.
-- [ ] URL updates with `timelineParticipantStatus`.
-- [ ] Refresh preserves active controls.
-- [ ] Browser back/forward works predictably.
-- [ ] Reset timeline filters clears controls.
-- [ ] Filtered no-results state appears.
-- [ ] Empty timeline state still appears for a world with no events.
-- [ ] Keyboard navigation works through search, filters, reset, and event links.
-- [ ] Mobile/narrow layout is usable.
-- [ ] No major console errors appear.
+- [x] Timeline page loads.
+- [x] Search by event title works.
+- [x] Search by event summary works.
+- [x] Search by event description works.
+- [x] Search by participant name works.
+- [x] Search by participant role label works.
+- [x] Date status filter works.
+- [x] Participant status filter works.
+- [x] Search and filters combine correctly.
+- [x] Chronological order remains stable after filtering.
+- [x] URL updates with `timelineSearch`.
+- [x] URL updates with `timelineDateStatus`.
+- [x] URL updates with `timelineParticipantStatus`.
+- [x] Refresh preserves active controls.
+- [x] Browser back/forward works predictably.
+- [x] Reset timeline filters clears controls.
+- [x] Filtered no-results state appears.
+- [x] Empty timeline state still appears for a world with no events.
+- [x] Keyboard navigation works through search, filters, reset, and event links.
+- [x] Mobile/narrow layout is usable.
+- [x] No major console errors appear.
 
 ---
 
 ## Completion Notes
 
-To be filled in after implementation.
+Sprint 2 manual verification was completed against the checklist above.
 
-- Branch:
-- PR:
+- Branch: `v1.2-timeline-explorer`
+- PR: Pending
 - Tests run:
-- Manual verification:
+  - [x] Client build: passed
+- Summary:
+  - Timeline search, filters, URL query state, reset behavior, no-results states, keyboard navigation, and responsive layout passed.
 - Known follow-ups:
+  - Sprint 3 will polish participant display, accessibility, responsive behavior, release documentation, and final v1.2 verification.
