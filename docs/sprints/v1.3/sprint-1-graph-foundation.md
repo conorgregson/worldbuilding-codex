@@ -42,15 +42,6 @@ Sprint 1 covers the first layer of that work: the graph route, graph data loadin
 
 ---
 
-## Linked Issues
-
-- [ ] Add relationship graph page or section
-- [ ] Render entities as graph nodes
-- [ ] Render relationships as directional edges
-- [ ] Add graph empty states
-
----
-
 ## Implementation Summary
 
 Sprint 1 will add the first working Relationship Graph experience to Worldbuilding Codex.
@@ -90,18 +81,18 @@ The world detail page can keep the existing relationship management workflow, wh
 
 ## Acceptance Criteria
 
-- [ ] Users can open a Relationship Graph page or section for a world.
-- [ ] The graph view loads the correct world data.
-- [ ] Entities render as visible graph nodes.
-- [ ] Relationships render as visible directional edges.
-- [ ] Relationship type or label information is visible where practical.
-- [ ] Users can navigate to the graph view from the world detail page.
-- [ ] A world with entities but no relationships does not crash.
-- [ ] A world with no entities does not crash.
-- [ ] Refreshing the graph page does not crash.
-- [ ] The graph layout is usable on desktop.
-- [ ] The graph layout remains usable on narrower screens.
-- [ ] No obvious console errors appear during normal graph usage.
+- [x] Users can open a Relationship Graph page or section for a world.
+- [x] The graph view loads the correct world data.
+- [x] Entities render as visible graph nodes.
+- [x] Relationships render as visible directional edges.
+- [x] Relationship type or label information is visible where practical.
+- [x] Users can navigate to the graph view from the world detail page.
+- [x] A world with entities but no relationships does not crash.
+- [x] A world with no entities does not crash.
+- [x] Refreshing the graph page does not crash.
+- [x] The graph layout is usable on desktop.
+- [x] The graph layout remains usable on narrower screens.
+- [x] No obvious console errors appear during normal graph usage.
 
 ---
 
@@ -109,21 +100,21 @@ The world detail page can keep the existing relationship management workflow, wh
 
 ### Local Verification
 
-- [ ] Run frontend build/typecheck.
-- [ ] Load a world with multiple entities and relationships.
-- [ ] Open the Relationship Graph page or section.
-- [ ] Confirm the graph page loads successfully.
-- [ ] Confirm entities appear as graph nodes.
-- [ ] Confirm relationships appear as directional edges.
-- [ ] Confirm relationship labels or types are visible where practical.
-- [ ] Refresh the graph page and confirm it still loads.
-- [ ] Open a world with entities but no relationships.
-- [ ] Confirm the graph page does not crash.
-- [ ] Open a world with no entities.
-- [ ] Confirm the graph page does not crash.
-- [ ] Test the graph layout on desktop.
-- [ ] Test the graph layout on a narrow viewport.
-- [ ] Confirm no obvious console errors appear.
+- [x] Run frontend build/typecheck.
+- [x] Load a world with multiple entities and relationships.
+- [x] Open the Relationship Graph page or section.
+- [x] Confirm the graph page loads successfully.
+- [x] Confirm entities appear as graph nodes.
+- [x] Confirm relationships appear as directional edges.
+- [x] Confirm relationship labels or types are visible where practical.
+- [x] Refresh the graph page and confirm it still loads.
+- [x] Open a world with entities but no relationships.
+- [x] Confirm the graph page does not crash.
+- [x] Open a world with no entities.
+- [x] Confirm the graph page does not crash.
+- [x] Test the graph layout on desktop.
+- [x] Test the graph layout on a narrow viewport.
+- [x] Confirm no obvious console errors appear.
 
 ### Production Verification
 
@@ -160,8 +151,10 @@ Complete after merge/deploy:
 
 - Graph rendering should defensively handle missing or incomplete entity/relationship data.
 - Relationship edges depend on the current relationship response shape.
-- If a third-party graph library is used, keep the implementation lightweight and easy to maintain.
-- The first graph layout does not need to be perfect; Sprint 1 is focused on stable rendering.
+- Sprint 1 intentionally avoided adding a graph library and instead used a lightweight SVG graph.
+- The graph currently fetches relationship data per entity because there is not yet a world-level relationships endpoint.
+- This approach keeps Sprint 1 frontend-focused but may be worth revisiting later if graph data becomes larger.
+- The first graph layout is intentionally simple; Sprint 1 is focused on stable rendering.
 - Graph navigation and filtering are intentionally left for Sprint 2.
 - Empty state polish can continue in Sprint 3.
 
@@ -173,25 +166,35 @@ To be completed after Sprint 1 work is finished.
 
 ### Summary
 
-Sprint 1 is pending.
+Sprint 1 is complete.
 
-The goal of this sprint is to establish the Relationship Graph foundation by adding a dedicated graph view, rendering entities as nodes, and rendering relationships as directional edges.
+The Relationship Graph foundation is now implemented. Users can open a dedicated graph route for a world, view entities as graph nodes, and see relationships as directional SVG edges with relationship type labels.
+
+The world detail page now includes a Relationship Graph entry card, making the feature discoverable from the existing world workflow.
 
 ### Verification Results
 
-Manual smoke testing pending.
+Manual smoke testing passed.
 
-Verify:
+Verified:
 
+- Frontend build passed.
 - Graph page loads locally.
+- Relationship Graph route is protected.
+- Relationship Graph route refresh works.
+- Back-to-world navigation works.
+- World detail page shows the Relationship Graph entry link.
 - Entity nodes render correctly.
 - Relationship edges render correctly.
-- Graph route refresh works.
-- Sparse graph data does not crash the page.
-- Empty graph data does not crash the page.
-- No obvious console errors appear during normal graph usage.
+- Relationship type labels appear where practical.
+- World with entities but no relationships shows the no-relationships state.
+- World with no entities shows the no-entities state.
+- Desktop layout is usable.
+- Narrow/mobile layout is usable.
+- No obvious console errors appeared during normal graph usage.
 
 ### Follow-Up Items
 
-- Sprint 2 should build on the graph foundation by adding node navigation, relationship type filtering, and selected-entity highlighting.
-- Sprint 3 should polish empty states, accessibility, responsive behavior, documentation, and release materials.
+- Sprint 2 should build on the graph foundation by adding node navigation, relationship type filtering, selected-entity highlighting, and incoming/outgoing relationship emphasis.
+- Sprint 3 should polish graph empty states, accessibility, responsive behavior, documentation, and release materials.
+- A future backend improvement could add a world-level relationships endpoint if graph data grows large enough that per-entity relationship fetching becomes inefficient.
