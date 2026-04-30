@@ -128,27 +128,36 @@ If exact beckend sorting is already available, prefer reusing it. If not, apply 
 
 ## Manual Verification Checklist
 
-- [ ] Log in successfully.
-- [ ] Open a world with timeline events.
-- [ ] Click/open the dedicated timeline page.
-- [ ] Confirm timeline events render.
-- [ ] Confirm events are ordered chronologically.
-- [ ] Refresh the timeline route directly.
-- [ ] Confirm the page still loads correctly.
-- [ ] Open a world with no events.
-- [ ] Confirm the empty timeline state appears.
-- [ ] Test desktop layout.
-- [ ] Test mobile/narrow layout.
-- [ ] Confirm no console errors appear during normal use.
+- [x] Log in successfully.
+- [x] Open a world with timeline events.
+- [x] Click/open the dedicated timeline page.
+- [x] Confirm timeline events render.
+- [x] Confirm events are ordered chronologically.
+- [x] Refresh the timeline route directly.
+- [x] Confirm the page still loads correctly.
+- [x] Open a world with no events.
+- [x] Confirm the empty timeline state appears.
+- [x] Test desktop layout.
+- [x] Test mobile/narrow layout.
+- [x] Confirm no console errors appear during normal use.
 
 ---
 
 ## Completion Notes
 
-To be filled in after implementation.
-
-- Branch:
-- PR:
+- Branch: v1.2-timeline-explorer
+- PR: Pending
 - Tests run:
+  - Client build passed
+  - Manual route verification passed
 - Manual verification:
+  - Dedicated world timeline route loads
+  - Timeline route refresh works
+  - Events render in chronological order
+  - Participants display on event cards
+  - World detail page links to full timeline
+  - Back to world link works
+  - Empty timeline state appears for worlds with no events
+  - No major console errors found
 - Known follow-ups:
+  - Sprint 2 will add timeline search, filters, URL query state, and no-results states
