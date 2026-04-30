@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { Card } from "../components/ui/Card";
@@ -15,6 +15,7 @@ const SVG_HEIGHT = 560;
 const CENTER_X = SVG_WIDTH / 2;
 const CENTER_Y = SVG_HEIGHT / 2;
 const GRAPH_RADIUS = 210;
+const EMPTY_ENTITIES: Entity[] = []
 
 type GraphNode = {
   id: string;
@@ -65,16 +66,77 @@ function getUniqueOutgoingRelationships(
   });
 }
 
+function getRelationshipTypes(relationships: OutgoingRelationship[]) {
+  return Array.from(
+    new Set(
+      relationships
+        .map((relationship) => relationship.relationshipType.trim())
+        .filter(Boolean)
+    )
+  ).sort((a, b) => a.localeCompare(b));
+}
+
 function getNodeLabel(label: string) {
   return label.length > 18 ? `${label.slice(0, 18)}...` : label;
+}
+
+function getNodeClassName({
+  nodeId,
+  selectedEntityId,
+  connectedEntityIds,
+}: {
+  nodeId: string;
+  selectedEntityId: string;
+  connectedEntityIds: Set<string>;
+}) {
+  return [
+    "relationship-graph__node",
+    selectedEntityId === nodeId ? "relationship-graph__node--selected" : "",
+    selectedEntityId && connectedEntityIds.has(nodeId)
+      ? "relationship-graph__node--connected"
+      : "",
+    selectedEntityId && !connectedEntityIds.has(nodeId)
+      ? "relationship-graph__node--dimmed"
+      : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
+
+function getEdgeClassName({
+  relationshipId,
+  selectedEntityId,
+  connectedRelationshipIds,
+}: {
+  relationshipId: string;
+  selectedEntityId: string;
+  connectedRelationshipIds: Set<string>;
+}) {
+  return [
+    "relationship-graph__edge",
+    selectedEntityId && connectedRelationshipIds.has(relationshipId)
+      ? "relationship-graph__edge--connected"
+      : "",
+    selectedEntityId && !connectedRelationshipIds.has(relationshipId)
+      ? "relationship-graph__edge--dimmed"
+      : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 }
 
 function RelationshipGraph({
   entities,
   relationships,
+  totalRelationshipCount,
+  selectedEntityId,
+  onSelectEntity,
 }: {
   entities: Entity[];
   relationships: OutgoingRelationship[];
+  totalRelationshipCount: number;
+  selectedEntityId: string;
+  onSelectEntity: (entityId: string) => void;
 }) {
   const nodes = useMemo(() => getRelationshipGraphNodes(entities), [entities]);
 
@@ -87,6 +149,38 @@ function RelationshipGraph({
       nodeMap.has(relationship.sourceEntityId) &&
       nodeMap.has(relationship.targetEntityId)
   );
+
+  const connectedRelationshipIds = useMemo(() => {
+    if (!selectedEntityId) return new Set<string>();
+
+    return new Set(
+      visibleRelationships
+        .filter(
+          (relationship) =>
+            relationship.sourceEntityId === selectedEntityId ||
+            relationship.targetEntityId === selectedEntityId
+        )
+        .map((relationship) => relationship.id)
+    );
+  }, [selectedEntityId, visibleRelationships]);
+
+  const connectedEntityIds = useMemo(() => {
+    const entityIds = new Set<string>();
+
+    if (!selectedEntityId) return entityIds;
+
+    visibleRelationships.forEach((relationship) => {
+      if (
+        relationship.sourceEntityId === selectedEntityId ||
+        relationship.targetEntityId === selectedEntityId
+      ) {
+        entityIds.add(relationship.sourceEntityId);
+        entityIds.add(relationship.targetEntityId);
+      }
+    });
+
+    return entityIds;
+  }, [selectedEntityId, visibleRelationships]);
 
   if (entities.length === 0) {
     return (
@@ -101,13 +195,24 @@ function RelationshipGraph({
     );
   }
 
-  if (relationships.length === 0) {
+  if (totalRelationshipCount === 0) {
     return (
       <Card>
         <StatusMessage variant="muted">
           No relationships to graph yet. This world has entities, but they are
           not connected yet. Add relationships between entities to build a visual
           lore graph.
+        </StatusMessage>
+      </Card>
+    );
+  }
+
+  if (relationships.length === 0) {
+    return (
+      <Card>
+        <StatusMessage variant="muted">
+          No relationships match this filter. Try another relationship type or
+          reset the graph filters.
         </StatusMessage>
       </Card>
     );
@@ -125,7 +230,8 @@ function RelationshipGraph({
           <title id="relationship-graph-title">Relationship graph</title>
           <desc id="relationship-graph-description">
             Entities are shown as nodes. Relationships are shown as directional
-            edges between entities.
+            edges between entities. Select an entity node to highlight its
+            incoming and outgoing relationships.
           </desc>
 
           <defs>
@@ -152,7 +258,14 @@ function RelationshipGraph({
             const labelY = (sourceNode.y + targetNode.y) / 2;
 
             return (
-              <g key={relationship.id} className="relationship-graph__edge">
+              <g
+                key={relationship.id}
+                className={getEdgeClassName({
+                  relationshipId: relationship.id,
+                  selectedEntityId,
+                  connectedRelationshipIds,
+                })}
+              >
                 <line
                   x1={sourceNode.x}
                   y1={sourceNode.y}
@@ -168,7 +281,24 @@ function RelationshipGraph({
           })}
 
           {nodes.map((node) => (
-            <g key={node.id} className="relationship-graph__node">
+            <g
+              key={node.id}
+              className={getNodeClassName({
+                nodeId: node.id,
+                selectedEntityId,
+                connectedEntityIds,
+              })}
+              role="button"
+              tabIndex={0}
+              aria-label={`Select ${node.label}`}
+              onClick={() => onSelectEntity(node.id)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  onSelectEntity(node.id);
+                }
+              }}
+            >
               <circle cx={node.x} cy={node.y} r="42" />
               <text x={node.x} y={node.y - 4}>
                 {getNodeLabel(node.label)}
@@ -201,6 +331,9 @@ export default function WorldRelationshipGraphPage() {
   const { worldId } = useParams();
   const resolvedWorldId = worldId ?? "";
 
+  const [relationshipTypeFilter, setRelationshipTypeFilter] = useState("");
+  const [selectedEntityId, setSelectedEntityId] = useState("");
+
   const worldQuery = useQuery({
     queryKey: ["world", resolvedWorldId],
     queryFn: () => getWorld(resolvedWorldId),
@@ -213,7 +346,7 @@ export default function WorldRelationshipGraphPage() {
     enabled: Boolean(worldId),
   });
 
-  const entities = entitiesQuery.data ?? [];
+  const entities = entitiesQuery.data ?? EMPTY_ENTITIES;
 
   const relationshipQueries = useQueries({
     queries: entities.map((entity) => ({
@@ -231,6 +364,23 @@ export default function WorldRelationshipGraphPage() {
     return getUniqueOutgoingRelationships(outgoingRelationships);
   }, [relationshipQueries]);
 
+  const relationshipTypes = useMemo(
+    () => getRelationshipTypes(relationships),
+    [relationships]
+  );
+
+  const filteredRelationships = useMemo(() => {
+    if (!relationshipTypeFilter) return relationships;
+
+    return relationships.filter(
+      (relationship) => relationship.relationshipType === relationshipTypeFilter
+    );
+  }, [relationshipTypeFilter, relationships]);
+
+  const selectedEntity = useMemo(() => {
+    return entities.find((entity) => entity.id === selectedEntityId);
+  }, [entities, selectedEntityId]);
+
   const isRelationshipsLoading = relationshipQueries.some(
     (query) => query.isLoading
   );
@@ -238,6 +388,11 @@ export default function WorldRelationshipGraphPage() {
   const relationshipError = relationshipQueries.find(
     (query) => query.error instanceof Error
   )?.error;
+
+  function handleResetGraphControls() {
+    setRelationshipTypeFilter("");
+    setSelectedEntityId("");
+  }
 
   if (!worldId) {
     return (
@@ -259,9 +414,11 @@ export default function WorldRelationshipGraphPage() {
         aria-labelledby={GRAPH_HEADING_ID}
       >
         <div className="section-heading">
-          <p className="muted-text-reset">World Relationships</p>
+          <p className="muted-text-reset">World relationships</p>
           <h1 id={GRAPH_HEADING_ID}>
-            {worldQuery.data ? `${worldQuery.data.title} Relationship Graph` : "Relationship Graph"}
+            {worldQuery.data
+              ? `${worldQuery.data.title} Relationship Graph`
+              : "Relationship Graph"}
           </h1>
           <p>
             Explore how this world&apos;s entities connect through directional
@@ -274,7 +431,9 @@ export default function WorldRelationshipGraphPage() {
         </div>
 
         {worldQuery.isLoading || entitiesQuery.isLoading ? (
-          <StatusMessage variant="muted">Loading relationship graph...</StatusMessage>
+          <StatusMessage variant="muted">
+            Loading relationship graph...
+          </StatusMessage>
         ) : null}
 
         {worldQuery.error instanceof Error ? (
@@ -305,7 +464,79 @@ export default function WorldRelationshipGraphPage() {
         !entitiesQuery.error &&
         !relationshipError &&
         !isRelationshipsLoading ? (
-          <RelationshipGraph entities={entities} relationships={relationships} />
+          <>
+            <Card>
+              <div className="relationship-graph-controls">
+                <label className="form-field">
+                  <span>Relationship type</span>
+                  <select
+                    value={relationshipTypeFilter}
+                    onChange={(event) =>
+                      setRelationshipTypeFilter(event.target.value)
+                    }
+                    disabled={relationships.length === 0}
+                  >
+                    <option value="">All relationship types</option>
+                    {relationshipTypes.map((relationshipType) => (
+                      <option key={relationshipType} value={relationshipType}>
+                        {relationshipType}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                <div className="relationship-graph-controls__actions">
+                  {selectedEntity ? (
+                    <Link
+                      className="ui-link-button ui-link-button--secondary"
+                      to={`/entities/${selectedEntity.id}`}
+                    >
+                      Open selected entity
+                    </Link>
+                  ) : null}
+
+                  {selectedEntity ? (
+                    <button
+                      className="ui-link-button ui-link-button--secondary relationship-graph-control-button"
+                      type="button"
+                      onClick={() => setSelectedEntityId("")}
+                    >
+                      Clear selection
+                    </button>
+                  ) : null}
+
+                  {relationshipTypeFilter || selectedEntity ? (
+                    <button
+                      className="ui-link-button ui-link-button--secondary relationship-graph-control-button"
+                      type="button"
+                      onClick={handleResetGraphControls}
+                    >
+                      Reset graph controls
+                    </button>
+                  ) : null}
+                </div>
+              </div>
+
+              {selectedEntity ? (
+                <p className="relationship-graph-selection muted-text-reset">
+                  Selected entity: <strong>{selectedEntity.name}</strong>
+                </p>
+              ) : (
+                <p className="relationship-graph-selection muted-text-reset">
+                  Select an entity node to highlight its incoming and outgoing
+                  relationships.
+                </p>
+              )}
+            </Card>
+
+            <RelationshipGraph
+              entities={entities}
+              relationships={filteredRelationships}
+              totalRelationshipCount={relationships.length}
+              selectedEntityId={selectedEntityId}
+              onSelectEntity={setSelectedEntityId}
+            />
+          </>
         ) : null}
       </section>
     </div>

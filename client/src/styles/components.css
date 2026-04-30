@@ -357,3 +357,168 @@ select:disabled {
     min-width: 640px;
   }
 }
+
+.relationship-graph-controls {
+  display: grid;
+  gap: 16px;
+}
+
+.relationship-graph-controls__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.relationship-graph-selection {
+  margin-top: 12px;
+}
+
+.relationship-graph-selection strong {
+  color: var(--color-text-strong);
+}
+
+.relationship-graph-wrap {
+  width: 100%;
+  overflow-x: auto;
+  padding: 8px;
+}
+
+.relationship-graph {
+  display: block;
+  width: 100%;
+  min-width: 720px;
+  max-width: 100%;
+  min-height: 440px;
+}
+
+.relationship-graph marker path {
+  fill: rgba(147, 197, 253, 0.78);
+}
+
+.relationship-graph__edge {
+  transition: opacity 160ms ease;
+}
+
+.relationship-graph__edge line {
+  stroke: rgba(147, 197, 253, 0.58);
+  stroke-width: 2;
+  transition:
+    stroke 160ms ease,
+    stroke-width 160ms ease,
+    opacity 160ms ease;
+}
+
+.relationship-graph__edge text {
+  fill: var(--color-text-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-anchor: middle;
+  paint-order: stroke;
+  stroke: var(--color-surface);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+  transition:
+    fill 160ms ease,
+    opacity 160ms ease;
+}
+
+.relationship-graph__edge--connected line {
+  stroke: #dbeafe;
+  stroke-width: 3;
+}
+
+.relationship-graph__edge--connected text {
+  fill: var(--color-text-strong);
+}
+
+.relationship-graph__edge--dimmed {
+  opacity: 0.22;
+}
+
+.relationship-graph__node {
+  cursor: pointer;
+  transition: opacity 160ms ease;
+}
+
+.relationship-graph__node circle {
+  fill: rgba(37, 99, 235, 0.2);
+  stroke: rgba(147, 197, 253, 0.78);
+  stroke-width: 2;
+  transition:
+    fill 160ms ease,
+    stroke 160ms ease,
+    stroke-width 160ms ease,
+    filter 160ms ease;
+}
+
+.relationship-graph__node text {
+  fill: var(--color-text-strong);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+  transition: fill 160ms ease;
+}
+
+.relationship-graph__node-type {
+  fill: var(--color-text-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.relationship-graph__node:hover circle,
+.relationship-graph__node:focus-visible circle {
+  fill: rgba(37, 99, 235, 0.34);
+  stroke: #dbeafe;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 12px rgba(147, 197, 253, 0.2));
+}
+
+.relationship-graph__node:focus-visible {
+  outline: none;
+}
+
+.relationship-graph__node--selected circle {
+  fill: rgba(37, 99, 235, 0.42);
+  stroke: #f8fafc;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 16px rgba(147, 197, 253, 0.28));
+}
+
+.relationship-graph__node--connected circle {
+  stroke: #dbeafe;
+  stroke-width: 3;
+}
+
+.relationship-graph__node--dimmed {
+  opacity: 0.28;
+}
+
+.relationship-graph-summary {
+  padding-top: 12px;
+  margin-top: 12px;
+  border-top: 1px solid rgba(69, 96, 127, 0.45);
+}
+
+@media (min-width: 720px) {
+  .relationship-graph-controls {
+    grid-template-columns: minmax(220px, 320px) 1fr;
+    align-items: end;
+  }
+
+  .relationship-graph-controls__actions {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 760px) {
+  .relationship-graph-wrap {
+    margin-inline: -8px;
+  }
+
+  .relationship-graph {
+    min-width: 640px;
+  }
+}
