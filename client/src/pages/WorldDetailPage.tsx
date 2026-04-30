@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Card } from "../components/ui/Card";
 import { deleteWorld, getWorld, updateWorld } from "../features/worlds/worlds.api";
 import { createEntity, getEntities } from "../features/entities/entities.api";
 import {
@@ -461,6 +462,24 @@ export default function WorldDetailPage() {
           }))
         }
       />
+
+      <Card>
+        <div className="section-heading">
+          <div>
+            <h2>Timeline Explorer</h2>
+            <p>
+              Open a focused chronological view of this world&apos;s timeline
+              events.
+            </p>
+          </div>
+
+          <div className="card-actions">
+            <Link to={`/worlds/${resolvedWorldId}/timeline`}>
+              View full timeline
+            </Link>
+          </div>
+        </div>
+      </Card>
 
       <TimelineSection
         events={eventsQuery.data ?? []}
