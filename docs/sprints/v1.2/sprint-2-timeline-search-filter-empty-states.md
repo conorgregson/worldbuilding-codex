@@ -157,23 +157,27 @@ Search behavior should be simple and predictable. Avoid fuzzy search for this sp
 
 ## Manual Verification Checklist
 
-- [ ] Open a world timeline with multiple events.
-- [ ] Search by event title.
-- [ ] Search by event summary.
-- [ ] Search by event description.
-- [ ] Search by participant name if participant data is available.
-- [ ] Confirm clearing search restores all events.
-- [ ] Apply each filter.
-- [ ] Combine search and filters.
-- [ ] Confirm chronological order remains stable after filtering.
-- [ ] Refresh with active search/filter state.
-- [ ] Confirm state persists through URL query parameters.
-- [ ] Use the reset action.
-- [ ] Confirm no-results state appears when expected.
-- [ ] Confirm empty state appears for a world with no events.
-- [ ] Test keyboard navigation.
-- [ ] Test mobile/narrow layout.
-- [ ] Confirm no console errors appear during normal use.
+- [ ] Timeline page loads.
+- [ ] Search by event title works.
+- [ ] Search by event summary works.
+- [ ] Search by event description works.
+- [ ] Search by participant name works.
+- [ ] Search by participant role label works.
+- [ ] Date status filter works.
+- [ ] Participant status filter works.
+- [ ] Search and filters combine correctly.
+- [ ] Chronological order remains stable after filtering.
+- [ ] URL updates with `timelineSearch`.
+- [ ] URL updates with `timelineDateStatus`.
+- [ ] URL updates with `timelineParticipantStatus`.
+- [ ] Refresh preserves active controls.
+- [ ] Browser back/forward works predictably.
+- [ ] Reset timeline filters clears controls.
+- [ ] Filtered no-results state appears.
+- [ ] Empty timeline state still appears for a world with no events.
+- [ ] Keyboard navigation works through search, filters, reset, and event links.
+- [ ] Mobile/narrow layout is usable.
+- [ ] No major console errors appear.
 
 ---
 
