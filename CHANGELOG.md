@@ -6,6 +6,45 @@ The format is inspired by *Keep a Changelog*, with concise milestone-based entri
 
 ---
 
+## [v1.2.0] — Timeline Explorer (2026-04-30)
+
+### Added
+
+- Added a dedicated world Timeline Explorer route at `/worlds/:worldId/timeline`.
+- Added chronological timeline event browsing ordered by sort year, sort index, date label, and creation fallback.
+- Added timeline search across event titles, summaries, descriptions, date fields, participant names, participant types, and role labels.
+- Added timeline filters for date/sort status and participant status.
+- Added URL-persisted timeline browsing controls with `timelineSearch`, `timelineDateStatus`, and `timelineParticipantStatus`.
+- Added clear timeline empty and filtered no-results states with reset guidance.
+- Added polished timeline participant display with entity names, entity type chips, role labels, and entity links.
+- Added a Timeline Explorer entry point from the world detail page.
+- Added Timeline Explorer screenshot to README
+
+### Changed
+
+- Improved the timeline browsing experience by separating focused timeline exploration from the existing editable world detail timeline section.
+- Aligned timeline search/filter controls with the existing entity browsing control pattern.
+- Improved timeline card hierarchy with dedicated timeline event styling.
+- Improved responsive behavior for timeline controls, event cards, meta pills, and participant chips.
+- Improved accessibility for timeline browsing with labelled controls, keyboard-reachable links/buttons, focus states, helper text, and live result count text.
+
+### Removed
+
+- Nothing removed.
+
+### Fixed
+
+- Improved filtered timeline feedback so no-results states clearly explain when active controls are hiding events.
+- Improved undated/incomplete timeline event handling so events without date labels, sort years, or sort indices still render safely.
+
+### Notes
+
+- The world detail page keeps the existing timeline section for event creation, editing, and deletion.
+- The dedicated Timeline Explorer page now serves as the focused browsing, search, and filtering experience.
+- Local/manual and production verification passed.
+
+---
+
 ## [v1.1.0] — Entity Search & Filtering (2026-04-29)
 
 ### Added

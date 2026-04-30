@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Status-v1.1%20Released-22c55e?style=for-the-badge" alt="Status: v1.1 Released" />
+  <img src="https://img.shields.io/badge/Status-v1.2%20Released-22c55e?style=for-the-badge" alt="Status: v1.2 Released" />
   <img src="https://img.shields.io/badge/Frontend-React%20%2B%20TypeScript-0f172a?style=for-the-badge&logo=react&logoColor=61dafb" alt="Frontend: React + TypeScript" />
   <img src="https://img.shields.io/badge/Backend-Express%20%2B%20TypeScript-0f172a?style=for-the-badge&logo=express&logoColor=ffffff" alt="Backend: Express + TypeScript" />
 </p>
@@ -13,7 +13,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Database-PostgreSQL%20%2B%20Prisma-0f172a?style=for-the-badge&logo=postgresql&logoColor=60a5fa" alt="Database: PostgreSQL + Prisma" />
   <img src="https://img.shields.io/badge/Deploy-Vercel%20%2B%20Render%20%2B%20Neon-0f172a?style=for-the-badge&logo=vercel&logoColor=ffffff" alt="Deploy: Vercel + Render + Neon" />
-  <img src="https://img.shields.io/badge/Version-v1.1.0-2563eb?style=for-the-badge" alt="Version: v1.1.0" />
+  <img src="https://img.shields.io/badge/Version-v1.2.0-2563eb?style=for-the-badge" alt="Version: v1.2.0" />
 </p>
 
 ---
@@ -77,11 +77,17 @@ Instead of storing lore in scattered text files or unstructured notes, the app m
 - View incoming and outgoing relationships from an entity detail page
 - Delete relationships with confirmation safeguards
 
-### Timeline and event tracking
+### Timeline Explorer and event tracking
 - Create historical events within a world
 - Add date labels, sort years, sort indices, summaries, and descriptions
 - Attach participating entities to events with optional role labels
-- Render events in a structured timeline view
+- Open a dedicated Timeline Explorer page for each world
+- Browse events in chronological order by sort year, sort index, date label, and creation fallback
+- Search timeline events by title, summary, description, date fields, participant names, participant types, and role labels
+- Filter timeline events by date/sort status and participant status
+- Preserve timeline browsing controls through URL query parameters
+- Reset timeline search/filter controls with clear no-results guidance
+- View polished participant chips with entity names, entity types, and role labels
 
 ### Authentication and ownership
 - Protected login/register flow
@@ -91,10 +97,12 @@ Instead of storing lore in scattered text files or unstructured notes, the app m
 ### UX and architecture improvements
 - Refactored world and entity detail pages into modular sections
 - Reusable UI components for cards, buttons, inputs, and status messages
-- Clear success, error, loading, and empty states
+- Clear success, error, loading, empty, and filtered no-results states
 - Confirm prompts for destructive actions
 - Accessible entity browsing controls with keyboard-friendly search, filters, sorting, and reset behavior
-- Responsive entity browsing layout for desktop and mobile screens
+- Accessible timeline browsing controls with labelled search, filters, reset behavior, focus states, and live result count text
+- URL-persisted entity and timeline browsing controls
+- Responsive entity and timeline browsing layouts for desktop, tablet, and mobile screens
 
 ---
 
@@ -113,8 +121,8 @@ Instead of storing lore in scattered text files or unstructured notes, the app m
 ### Entity Detail — Ilyra Voss
 ![Entity Detail — Ilyra Voss](docs/screenshots/entity-detail-ilyra-voss.png)
 
-### Timeline — Aurelith
-![Timeline — Aurelith](docs/screenshots/timeline-aurelith.png)
+### Timeline Explorer — Aurelith
+![Timeline Explorer — Aurelith](docs/screenshots/timeline-explorer-aurelith.png)
 
 ### Relationships — Aurelith
 ![Relationships — Aurelith](docs/screenshots/relationships-ilyra-voss.png)
@@ -405,7 +413,7 @@ This uses `server/.env.prod` locally to apply migrations to the production datab
 
 ## Current Status
 
-Worldbuilding Codex is currently in its v1.1 release. The core lore-management workflow is stable, and the entity browsing experience now supports search, filtering, sorting, persistent query state, no-results guidance, and accessibility/responsive polish.
+Worldbuilding Codex is currently in its v1.2 release. The core lore-management workflow is stable, entity browsing supports search/filter/sort controls, and timeline events now have a dedicated Timeline Explorer for focused chronological browsing.
 
 Implemented:
 
@@ -419,27 +427,33 @@ Implemented:
 - entity no-results and reset states
 - relationship creation, viewing, and deletion
 - timeline event creation, viewing, editing, and deletion
+- dedicated world Timeline Explorer route
+- chronological timeline event browsing
+- timeline search by title, summary, description, date fields, participant names, participant types, and role labels
+- timeline filtering by date/sort status and participant status
+- URL-persisted timeline browsing controls
+- timeline empty and filtered no-results states
+- polished timeline participant display with entity type chips and role labels
 - event participants
 - modular refactored detail pages
 - protected user-owned data flow
-- accessibility and responsive polish for entity browsing
+- accessibility and responsive polish for entity and timeline browsing
 
 Current focus:
 
-- v1.2 Timeline Explorer planning
-- deeper timeline browsing
-- relationship visualization
+- v1.3 Relationship Graph planning
 - continued portfolio polish
 
 ---
 
 ## Known Limitations
 
-Worldbuilding Codex is stable for its core v1.0 workflow, but several areas are intentionally scoped for future releases.
+Worldbuilding Codex is stable for its core v1.2 workflow, but several areas are intentionally scoped for future releases.
 
-- Entity browsing now supports search, filtering, sorting, and no-results guidance, but advanced saved views and fuzzy search are not yet implemented.
+- Entity browsing supports search, filtering, sorting, URL query state, and no-results guidance, but advanced saved views and fuzzy search are not yet implemented.
+- Timeline browsing now has a dedicated Timeline Explorer with search, filters, participant display, URL query state, and no-results guidance, but advanced fictional calendar systems, eras, and drag-and-drop ordering are not yet implemented.
+- The world detail page still includes the editable timeline section while the dedicated Timeline Explorer serves as the focused browsing view. A future polish pass may turn the world detail timeline into a shorter preview.
 - Relationship data is currently shown in list/detail form. A visual graph view is planned for exploring connected entities more naturally.
-- Timeline functionality supports structured events and participants, but a dedicated full-page timeline explorer is planned.
 - Import/export support is not yet available, so worlds cannot currently be backed up or transferred through the UI.
 - Public read-only sharing is not yet implemented, so worlds are private to each authenticated user.
 - Dashboard analytics are not yet available for world-level summaries such as entity counts, relationship density, or timeline activity.
@@ -449,7 +463,7 @@ Worldbuilding Codex is stable for its core v1.0 workflow, but several areas are 
 
 ## Roadmap / Future Improvements
 
-Worldbuilding Codex is currently stable for its core v1.0 lore-management workflow. Future development will focus on making large fictional worlds easier to browse, visualize, share, and preserve.
+Worldbuilding Codex is currently stable for its core v1.2 lore-management workflow. Future development will focus on relationship visualization, data ownership, public sharing, and deeper worldbuilding tools.
 
 See the full project roadmap here:
 
@@ -457,13 +471,14 @@ See the full project roadmap here:
 
 Planned improvements include:
 
-- dedicated timeline explorer
-- richer relationship taxonomy / presets
 - graph/network view for entity relationships
+- richer relationship taxonomy / presets
 - import/export support
 - public read-only sharing
 - world-level dashboard analytics
-- advanced saved entity views or fuzzy search
+- advanced saved entity or timeline views
+- fuzzy search
+- fictional calendar systems, eras, and advanced timeline tools
 - more advanced lore browsing and navigation
 
 ---

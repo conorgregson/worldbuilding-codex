@@ -82,26 +82,40 @@ Released: Apr 2026
 
 ---
 
-## 🚀 Version 1.2 — Timeline Explorer
+### ✅ Version 1.2 — Timeline Explorer
 
-**Status:** Planned
-
-### Goal
-
-Turn existing event tracking into a dedicated timeline browsing experience.
+**Focus:** Turn existing event tracking into a dedicated timeline browsing experience with search, filtering, URL query state, participant visibility, and timeline-focused polish.
 
 ### Scope
 
-- [ ] Add dedicated world timeline route
+- Add dedicated world timeline route
   - **AC:** Users can open a focused timeline page for a world.
-- [ ] Improve chronological event layout
-  - **AC:** Events are ordered by sort year, sort index, and date label where available.
-- [ ] Add event search/filter controls
-  - **AC:** Users can search timeline events by title, summary, description, and participants.
-- [ ] Add participant visibility
-  - **AC:** Timeline events clearly show attached entities and role labels.
-- [ ] Add timeline empty states
+- Improve chronological event layout
+  - **AC:** Events are ordered by sort year, sort index, date label, and creation fallback where available.
+- Add event search controls
+  - **AC:** Users can search timeline events by title, summary, description, date fields, participant names, participant types, and role labels.
+- Add timeline filters
+  - **AC:** Users can filter events by date/sort status and participant status.
+- Preserve timeline browsing state
+  - **AC:** Timeline search/filter controls persist through URL query parameters and remain refresh-safe.
+- Add participant visibility
+  - **AC:** Timeline events clearly show attached entities, entity types, and role labels.
+- Add timeline empty and no-results states
   - **AC:** Empty and filtered timeline states are clear and actionable.
+- Polish accessibility and responsive layout
+  - **AC:** Timeline search, filter, reset, and participant links are labelled, keyboard reachable, focus-visible, and usable on desktop, tablet, and mobile.
+
+### Notes
+
+- v1.2 builds on the stable v1.0 core workflow and the v1.1 entity browsing improvements by giving timeline events their own focused browsing route.
+- Timeline browsing state is preserved with namespaced URL parameters:
+  - `timelineSearch`
+  - `timelineDateStatus`
+  - `timelineParticipantStatus`
+- The world detail page keeps the editable timeline section for event management, while the dedicated Timeline Explorer page provides focused browsing, search, and filtering.
+- Advanced fictional calendars, eras, drag-and-drop ordering, saved timeline views, and fuzzy search remain future improvement ideas.
+
+Released: Apr 2026
 
 ---
 
