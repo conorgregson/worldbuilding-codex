@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Status-v1.2%20Released-22c55e?style=for-the-badge" alt="Status: v1.2 Released" />
+  <img src="https://img.shields.io/badge/Status-v1.3%20Released-22c55e?style=for-the-badge" alt="Status: v1.3 Released" />
   <img src="https://img.shields.io/badge/Frontend-React%20%2B%20TypeScript-0f172a?style=for-the-badge&logo=react&logoColor=61dafb" alt="Frontend: React + TypeScript" />
   <img src="https://img.shields.io/badge/Backend-Express%20%2B%20TypeScript-0f172a?style=for-the-badge&logo=express&logoColor=ffffff" alt="Backend: Express + TypeScript" />
 </p>
@@ -13,7 +13,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Database-PostgreSQL%20%2B%20Prisma-0f172a?style=for-the-badge&logo=postgresql&logoColor=60a5fa" alt="Database: PostgreSQL + Prisma" />
   <img src="https://img.shields.io/badge/Deploy-Vercel%20%2B%20Render%20%2B%20Neon-0f172a?style=for-the-badge&logo=vercel&logoColor=ffffff" alt="Deploy: Vercel + Render + Neon" />
-  <img src="https://img.shields.io/badge/Version-v1.2.0-2563eb?style=for-the-badge" alt="Version: v1.2.0" />
+  <img src="https://img.shields.io/badge/Version-v1.3.0-2563eb?style=for-the-badge" alt="Version: v1.3.0" />
 </p>
 
 ---
@@ -76,6 +76,12 @@ Instead of storing lore in scattered text files or unstructured notes, the app m
 - Create typed relationships between entities in the same world
 - View incoming and outgoing relationships from an entity detail page
 - Delete relationships with confirmation safeguards
+- Open a dedicated Relationship Graph page for each world
+- View entities as graph nodes and relationships as directional edges
+- Filter graph edges by relationship type
+- Select entities to highlight incoming and outgoing relationships
+- Open the selected entity detail page from the graph
+- Use clear graph empty states, filtered no-results guidance, and reset controls
 
 ### Timeline Explorer and event tracking
 - Create historical events within a world
@@ -124,8 +130,11 @@ Instead of storing lore in scattered text files or unstructured notes, the app m
 ### Timeline Explorer — Aurelith
 ![Timeline Explorer — Aurelith](docs/screenshots/timeline-explorer-aurelith.png)
 
-### Relationships — Aurelith
-![Relationships — Aurelith](docs/screenshots/relationships-ilyra-voss.png)
+### Relationship Graph — Aurelith
+![Relationship Graph — Aurelith](docs/screenshots/relationship-graph-aurelith.png)
+
+### Relationships Detail — Aurelith
+![Relationships Detail — Aurelith](docs/screenshots/relationships-ilyra-voss.png)
 
 ### Register
 ![Register](docs/screenshots/auth-register.png)
@@ -413,7 +422,7 @@ This uses `server/.env.prod` locally to apply migrations to the production datab
 
 ## Current Status
 
-Worldbuilding Codex is currently in its v1.2 release. The core lore-management workflow is stable, entity browsing supports search/filter/sort controls, and timeline events now have a dedicated Timeline Explorer for focused chronological browsing.
+Worldbuilding Codex is currently in its v1.3 release. The core lore-management workflow is stable, entity browsing supports search/filter/sort controls, timeline events have a dedicated Timeline Explorer, and relationships can now be explored visually through a dedicated Relationship Graph.
 
 Implemented:
 
@@ -426,6 +435,13 @@ Implemented:
 - URL-persisted entity browsing controls
 - entity no-results and reset states
 - relationship creation, viewing, and deletion
+- dedicated world Relationship Graph route
+- visual entity nodes and directional relationship edges
+- relationship type filtering in the graph
+- selected entity highlighting in the graph
+- incoming and outgoing relationship highlighting
+- graph empty states and filtered no-results guidance
+- graph keyboard selection and accessible graph controls
 - timeline event creation, viewing, editing, and deletion
 - dedicated world Timeline Explorer route
 - chronological timeline event browsing
@@ -437,23 +453,23 @@ Implemented:
 - event participants
 - modular refactored detail pages
 - protected user-owned data flow
-- accessibility and responsive polish for entity and timeline browsing
+- accessibility and responsive polish for entity, timeline, and relationship graph browsing
 
 Current focus:
 
-- v1.3 Relationship Graph planning
+- v1.4 World Import & Export planning
 - continued portfolio polish
 
 ---
 
 ## Known Limitations
 
-Worldbuilding Codex is stable for its core v1.2 workflow, but several areas are intentionally scoped for future releases.
+Worldbuilding Codex is stable for its core v1.3 workflow, but several areas are intentionally scoped for future releases.
 
 - Entity browsing supports search, filtering, sorting, URL query state, and no-results guidance, but advanced saved views and fuzzy search are not yet implemented.
-- Timeline browsing now has a dedicated Timeline Explorer with search, filters, participant display, URL query state, and no-results guidance, but advanced fictional calendar systems, eras, and drag-and-drop ordering are not yet implemented.
-- The world detail page still includes the editable timeline section while the dedicated Timeline Explorer serves as the focused browsing view. A future polish pass may turn the world detail timeline into a shorter preview.
-- Relationship data is currently shown in list/detail form. A visual graph view is planned for exploring connected entities more naturally.
+- Timeline browsing has a dedicated Timeline Explorer with search, filters, participant display, URL query state, and no-results guidance, but advanced fictional calendar systems, eras, and drag-and-drop ordering are not yet implemented.
+- Relationship browsing now includes a dedicated visual Relationship Graph with filtering, node selection, and highlighting, but advanced graph search, saved graph views, layout persistence, and graph editing are not yet implemented.
+- The world detail page still includes editable timeline and relationship management sections while the dedicated Timeline Explorer and Relationship Graph serve as focused browsing views.
 - Import/export support is not yet available, so worlds cannot currently be backed up or transferred through the UI.
 - Public read-only sharing is not yet implemented, so worlds are private to each authenticated user.
 - Dashboard analytics are not yet available for world-level summaries such as entity counts, relationship density, or timeline activity.
@@ -463,7 +479,7 @@ Worldbuilding Codex is stable for its core v1.2 workflow, but several areas are 
 
 ## Roadmap / Future Improvements
 
-Worldbuilding Codex is currently stable for its core v1.2 lore-management workflow. Future development will focus on relationship visualization, data ownership, public sharing, and deeper worldbuilding tools.
+Worldbuilding Codex is currently stable for its core v1.3 lore-management workflow. Future development will focus on data ownership, public sharing, and deeper worldbuilding tools.
 
 See the full project roadmap here:
 
@@ -471,10 +487,11 @@ See the full project roadmap here:
 
 Planned improvements include:
 
-- graph/network view for entity relationships
-- richer relationship taxonomy / presets
 - import/export support
 - public read-only sharing
+- richer relationship taxonomy / presets
+- advanced graph search and saved graph views
+- graph layout persistence
 - world-level dashboard analytics
 - advanced saved entity or timeline views
 - fuzzy search

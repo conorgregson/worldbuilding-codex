@@ -490,6 +490,24 @@ export default function WorldDetailPage() {
         onDelete={handleDeleteEvent}
       />
 
+      <Card>
+        <div className="section-heading">
+          <div>
+            <h2>Relationship Graph</h2>
+            <p>
+              Open a visual graph of this world&apos;s connected entities and
+              relationships.
+            </p>
+          </div>
+
+          <div className="card-actions">
+            <Link to={`/worlds/${resolvedWorldId}/graph`}>
+              View relationship graph
+            </Link>
+          </div>
+        </div>
+      </Card>
+
       <RelationshipExplorerSection
         entities={entitiesQuery.data ?? []}
         relationships={relationshipsQuery.data}

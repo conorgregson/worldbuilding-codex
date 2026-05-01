@@ -6,6 +6,7 @@ import RegisterPage from "../pages/RegisterPage";
 import WorldsPage from "../pages/WorldsPage";
 import WorldDetailPage from "../pages/WorldDetailPage";
 import WorldTimelinePage from "../pages/WorldTimelinePage";
+import WorldRelationshipGraphPage from "../pages/WorldRelationshipGraphPage";
 import EntityDetailPage from "../pages/EntityDetailPage";
 import NotFoundPage from "../pages/NotFoundPage";
 
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         path: "/worlds/:worldId/timeline",
         element: <WorldTimelinePage />,
+      },
+      {
+        path: "/worlds/:worldId/graph",
+        element: <WorldRelationshipGraphPage />,
       },
       {
         path: "/entities/:entityId",

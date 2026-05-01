@@ -211,30 +211,30 @@ Recommended README updates:
 
 ### Production Verification
 
-- [ ] Production frontend loads successfully.
-- [ ] Production login works.
-- [ ] Timeline route loads in production.
-- [ ] Timeline route refresh works in production.
-- [ ] Timeline search/filtering works in production.
-- [ ] Timeline participant display works in production.
-- [ ] Backend health endpoint is reachable.
-- [ ] No major production console errors appear.
+- [x] Production frontend loads successfully.
+- [x] Production login works.
+- [x] Timeline route loads in production.
+- [x] Timeline route refresh works in production.
+- [x] Timeline search/filtering works in production.
+- [x] Timeline participant display works in production.
+- [x] Backend health endpoint is reachable.
+- [x] No major production console errors appear.
 
 ---
 
 ## Release Checklist
 
-- [ ] All planned v1.2 scope completed.
-- [ ] All tests pass locally.
-- [ ] Manual verification completed.
-- [ ] Production verification completed.
-- [ ] README updated.
-- [ ] ROADMAP updated.
-- [ ] CHANGELOG updated.
-- [ ] PR description finalized.
-- [ ] Merge message finalized.
-- [ ] GitHub release notes finalized.
-- [ ] Version tagged as `v1.2.0`.
+- [x] All planned v1.2 scope completed.
+- [x] All tests pass locally.
+- [x] Manual verification completed.
+- [x] Production verification completed.
+- [x] README updated.
+- [x] ROADMAP updated.
+- [x] CHANGELOG updated.
+- [x] PR description finalized.
+- [x] Merge message finalized.
+- [x] GitHub release notes finalized.
+- [x] Version tagged as `v1.2.0`.
 
 ---
 
@@ -243,8 +243,8 @@ Recommended README updates:
 Sprint 3 local/manual verification was completed successfully against the checklist above. Production verification is pending until after the branch is pushed and deployed.
 
 - Branch: `v1.2-timeline-explorer`
-- PR: Pending
-- Production verification: Pending after push/deploy
+- PR: [#19 — v1.2 Timeline Explorer](https://github.com/conorgregson/worldbuilding-codex/pull/19)
+- Production verification: Passed
 
 - Tests run:
   - [x] Client build: passed
@@ -253,7 +253,7 @@ Sprint 3 local/manual verification was completed successfully against the checkl
   - [x] Timeline Explorer core flow, search, filters, reset behavior, URL query state, and empty/no-results states passed local/manual testing.
   - [x] Participant display polish passed local/manual testing, including participant names, entity type chips, role labels, links, and events without participants.
   - [x] Accessibility and responsive checks passed locally, including keyboard navigation, visible focus states, labelled controls, live result count text, desktop/tablet/mobile layout, wrapping behavior, and no horizontal overflow.
-  - [x] No major console errors were found during local/manual testing.
+  - [x] Production verification passed, including frontend load, login, timeline route, route refresh, search/filtering, participant display, backend health, and console review.
 
 - Implementation notes:
   - Added polished participant list display using `participant-list` and `participant-item`.
