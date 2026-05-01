@@ -15,7 +15,7 @@ const SVG_HEIGHT = 560;
 const CENTER_X = SVG_WIDTH / 2;
 const CENTER_Y = SVG_HEIGHT / 2;
 const GRAPH_RADIUS = 210;
-const EMPTY_ENTITIES: Entity[] = []
+const EMPTY_ENTITIES: Entity[] = [];
 
 type GraphNode = {
   id: string;
@@ -125,18 +125,41 @@ function getEdgeClassName({
     .join(" ");
 }
 
+function GraphEmptyState({
+  title,
+  children,
+  action,
+}: {
+  title: string;
+  children: React.ReactNode;
+  action?: React.ReactNode;
+}) {
+  return (
+    <Card>
+      <div className="section-heading">
+        <h2>{title}</h2>
+        <div className="card-content-stack">{children}</div>
+      </div>
+
+      {action ? <div className="card-actions">{action}</div> : null}
+    </Card>
+  );
+}
+
 function RelationshipGraph({
   entities,
   relationships,
   totalRelationshipCount,
   selectedEntityId,
   onSelectEntity,
+  onResetGraphControls,
 }: {
   entities: Entity[];
   relationships: OutgoingRelationship[];
   totalRelationshipCount: number;
   selectedEntityId: string;
   onSelectEntity: (entityId: string) => void;
+  onResetGraphControls: () => void;
 }) {
   const nodes = useMemo(() => getRelationshipGraphNodes(entities), [entities]);
 
@@ -184,37 +207,70 @@ function RelationshipGraph({
 
   if (entities.length === 0) {
     return (
-      <Card>
-        <StatusMessage variant="muted">
-          No entities to graph yet. Create characters, locations, factions,
-          species, artifacts, cultures, or other entities first. Once this world
-          has connected lore, the Relationship Graph will help you explore it
-          visually.
-        </StatusMessage>
-      </Card>
+      <GraphEmptyState
+        title="No entities to graph yet"
+        action={
+          <Link className="ui-link-button ui-link-button--secondary" to="../">
+            Back to world
+          </Link>
+        }
+      >
+        <p className="muted-text-reset">
+          Create characters, locations, factions, species, artifacts, cultures,
+          or other entities first.
+        </p>
+        <p className="muted-text-reset">
+          Once this world has connected lore, the Relationship Graph will help
+          you explore it visually.
+        </p>
+      </GraphEmptyState>
     );
   }
 
   if (totalRelationshipCount === 0) {
     return (
-      <Card>
-        <StatusMessage variant="muted">
-          No relationships to graph yet. This world has entities, but they are
-          not connected yet. Add relationships between entities to build a visual
-          lore graph.
-        </StatusMessage>
-      </Card>
+      <GraphEmptyState
+        title="No relationships to graph yet"
+        action={
+          <Link className="ui-link-button ui-link-button--secondary" to="../">
+            Back to world
+          </Link>
+        }
+      >
+        <p className="muted-text-reset">
+          This world has entities, but they are not connected yet.
+        </p>
+        <p className="muted-text-reset">
+          Add relationships between entities on the world detail page to build a
+          visual lore graph.
+        </p>
+      </GraphEmptyState>
     );
   }
 
   if (relationships.length === 0) {
     return (
-      <Card>
-        <StatusMessage variant="muted">
-          No relationships match this filter. Try another relationship type or
-          reset the graph filters.
-        </StatusMessage>
-      </Card>
+      <GraphEmptyState
+        title="No relationships match this filter"
+        action={
+          <button
+            className="ui-link-button ui-link-button--secondary relationship-graph-control-button"
+            type="button"
+            onClick={onResetGraphControls}
+          >
+            Reset graph controls
+          </button>
+        }
+      >
+        <p className="muted-text-reset">
+          The current relationship type filter is hiding every relationship in
+          this world.
+        </p>
+        <p className="muted-text-reset">
+          Try another relationship type or reset the graph controls to show the
+          full graph again.
+        </p>
+      </GraphEmptyState>
     );
   }
 
@@ -229,9 +285,10 @@ function RelationshipGraph({
         >
           <title id="relationship-graph-title">Relationship graph</title>
           <desc id="relationship-graph-description">
-            Entities are shown as nodes. Relationships are shown as directional
-            edges between entities. Select an entity node to highlight its
-            incoming and outgoing relationships.
+            Entities are shown as selectable nodes. Relationships are shown as
+            directional edges between entities. Select an entity node to
+            highlight its incoming and outgoing relationships. Select the same
+            node again to clear the selection.
           </desc>
 
           <defs>
@@ -280,38 +337,45 @@ function RelationshipGraph({
             );
           })}
 
-          {nodes.map((node) => (
-            <g
-              key={node.id}
-              className={getNodeClassName({
-                nodeId: node.id,
-                selectedEntityId,
-                connectedEntityIds,
-              })}
-              role="button"
-              tabIndex={0}
-              aria-label={`Select ${node.label}`}
-              onClick={() => onSelectEntity(node.id)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") {
-                  event.preventDefault();
-                  onSelectEntity(node.id);
-                }
-              }}
-            >
-              <circle cx={node.x} cy={node.y} r="42" />
-              <text x={node.x} y={node.y - 4}>
-                {getNodeLabel(node.label)}
-              </text>
-              <text
-                x={node.x}
-                y={node.y + 16}
-                className="relationship-graph__node-type"
+          {nodes.map((node) => {
+            const isSelected = selectedEntityId === node.id;
+
+            return (
+              <g
+                key={node.id}
+                className={getNodeClassName({
+                  nodeId: node.id,
+                  selectedEntityId,
+                  connectedEntityIds,
+                })}
+                role="button"
+                tabIndex={0}
+                aria-label={`${isSelected ? "Clear selection for" : "Select"} ${
+                  node.label
+                }, ${node.type}`}
+                aria-pressed={isSelected}
+                onClick={() => onSelectEntity(isSelected ? "" : node.id)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    onSelectEntity(isSelected ? "" : node.id);
+                  }
+                }}
               >
-                {node.type}
-              </text>
-            </g>
-          ))}
+                <circle cx={node.x} cy={node.y} r="42" />
+                <text x={node.x} y={node.y - 4}>
+                  {getNodeLabel(node.label)}
+                </text>
+                <text
+                  x={node.x}
+                  y={node.y + 16}
+                  className="relationship-graph__node-type"
+                >
+                  {node.type}
+                </text>
+              </g>
+            );
+          })}
         </svg>
       </div>
 
@@ -488,7 +552,7 @@ export default function WorldRelationshipGraphPage() {
                 <div className="relationship-graph-controls__actions">
                   {selectedEntity ? (
                     <Link
-                      className="ui-link-button ui-link-button--secondary"
+                      className="ui-link-button ui-link-button--primary"
                       to={`/entities/${selectedEntity.id}`}
                     >
                       Open selected entity
@@ -527,6 +591,13 @@ export default function WorldRelationshipGraphPage() {
                   relationships.
                 </p>
               )}
+
+              {relationshipTypeFilter ? (
+                <p className="relationship-graph-selection muted-text-reset">
+                  Active relationship filter:{" "}
+                  <strong>{relationshipTypeFilter}</strong>
+                </p>
+              ) : null}
             </Card>
 
             <RelationshipGraph
@@ -535,6 +606,7 @@ export default function WorldRelationshipGraphPage() {
               totalRelationshipCount={relationships.length}
               selectedEntityId={selectedEntityId}
               onSelectEntity={setSelectedEntityId}
+              onResetGraphControls={handleResetGraphControls}
             />
           </>
         ) : null}
