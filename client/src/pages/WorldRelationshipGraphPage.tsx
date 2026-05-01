@@ -173,6 +173,9 @@ function RelationshipGraph({
       nodeMap.has(relationship.targetEntityId)
   );
 
+  const hasGraphDataMismatch =
+    relationships.length > 0 && visibleRelationships.length === 0;
+
   const connectedRelationshipIds = useMemo(() => {
     if (!selectedEntityId) return new Set<string>();
 
@@ -269,6 +272,27 @@ function RelationshipGraph({
         <p className="muted-text-reset">
           Try another relationship type or reset the graph controls to show the
           full graph again.
+        </p>
+      </GraphEmptyState>
+    );
+  }
+
+  if (hasGraphDataMismatch) {
+    return (
+      <GraphEmptyState
+        title="Unable to display the relationship graph"
+        action={
+          <Link className="ui-link-button ui-link-button--secondary" to="../">
+            Back to world
+          </Link>
+        }
+      >
+        <p className="muted-text-reset">
+          The graph data loaded, but the relationships could not be matched to
+          visible entities.
+        </p>
+        <p className="muted-text-reset">
+          Refresh the page or return to the world detail page and try again.
         </p>
       </GraphEmptyState>
     );

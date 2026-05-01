@@ -119,26 +119,45 @@ Released: Apr 2026
 
 ---
 
-## 🌐 Version 1.3 — Relationship Graph
+## ✅ Version 1.3 — Relationship Graph
 
-**Status:** Planned
-
-### Goal
-
-Add a visual graph view that helps users explore connected lore through entity relationships.
+**Focus:** Add a visual graph view that helps users explore connected lore through entity relationships.
 
 ### Scope
 
-- [ ] Add relationship graph page or section
-  - **AC:** Entities render as nodes and relationships render as directional edges.
-- [ ] Support graph navigation
-  - **AC:** Users can click an entity node to open its detail page.
-- [ ] Support relationship filtering
+- Add relationship graph page
+  - **AC:** Users can open a dedicated graph page for a world.
+- Render graph nodes and edges
+  - **AC:** Entities render as graph nodes and relationships render as directional edges.
+- Support graph navigation
+  - **AC:** Users can select a graph node and open the matching entity detail page.
+- Support relationship filtering
   - **AC:** Users can filter graph edges by relationship type.
-- [ ] Highlight selected entities
+- Highlight selected entities
   - **AC:** Selecting an entity highlights its incoming and outgoing relationships.
-- [ ] Add graph empty/error states
-  - **AC:** Worlds without enough relationship data explain how to create graph content.
+- Add graph empty and no-results states
+  - **AC:** Worlds without enough relationship data explain how to create graph content, and filtered no-results states offer a clear reset action.
+- Polish graph accessibility and responsive layout
+  - **AC:** Graph controls are labelled, keyboard reachable, focus-visible, and usable on desktop, tablet, and mobile.
+
+### Notes
+
+- v1.3 builds on the stable v1.0 core workflow, the v1.1 entity browsing improvements, and the v1.2 Timeline Explorer by adding a visual way to explore connected lore.
+- The Relationship Graph is available at:
+  - `/worlds/:worldId/graph`
+- The graph supports:
+  - entity nodes
+  - directional relationship edges
+  - relationship type labels
+  - relationship type filtering
+  - selected entity highlighting
+  - incoming/outgoing relationship highlighting
+  - selected entity navigation
+  - empty and filtered no-results states
+- Graph filter and selection state are local for now. Future improvements may add URL query state if graph views need to become refresh-persistent.
+- Advanced graph search, saved graph views, graph layout persistence, graph editing, and a world-level relationships endpoint remain future improvement ideas.
+
+Released: Apr 2026
 
 ---
 

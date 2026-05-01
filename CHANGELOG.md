@@ -6,6 +6,53 @@ The format is inspired by *Keep a Changelog*, with concise milestone-based entri
 
 ---
 
+## [v1.3.0] — Relationship Graph (2026-04-30)
+
+### Added
+
+- Added a dedicated world Relationship Graph route at `/worlds/:worldId/graph`.
+- Added a Relationship Graph entry point from the world detail page.
+- Added visual entity nodes and directional relationship edges.
+- Added relationship type labels to graph edges.
+- Added relationship type filtering for graph relationships.
+- Added selected entity state for graph exploration.
+- Added incoming and outgoing relationship highlighting for selected entities.
+- Added selected entity navigation from the graph to the entity detail page.
+- Added graph empty states for worlds with no entities or no relationships.
+- Added filtered graph no-results guidance with a clear reset action.
+- Added keyboard graph node selection with Enter and Space.
+- Added accessible selected-state semantics for graph nodes with `aria-pressed`.
+- Added Relationship Graph screenshot to README.
+
+### Changed
+
+- Improved relationship browsing by adding a focused visual exploration view alongside the existing relationship management workflow.
+- Improved graph control hierarchy by making “Open selected entity” the primary graph action.
+- Improved graph controls layout so actions stack cleanly on smaller screens.
+- Improved graph accessibility with labelled controls, SVG title/description text, keyboard-selectable nodes, visible focus states, and selected entity helper text.
+- Improved graph highlighting with selected-node emphasis, connected-node emphasis, incoming/outgoing edge emphasis, and dimmed unrelated graph elements.
+- Consolidated Relationship Graph CSS into a cleaner graph-specific component section.
+
+### Removed
+
+- Nothing removed.
+
+### Fixed
+
+- Improved filtered graph feedback so no-results states clearly explain when active controls are hiding relationships.
+- Improved graph empty-state presentation so no-entity and no-relationship states appear as polished card-based messages.
+- Improved graph control button styling so clear/reset actions match the rest of the app UI.
+- Improved narrow-screen graph controls layout to avoid awkward split-column spacing.
+
+### Notes
+
+- The world detail page keeps the existing relationship management section for creating, viewing, and deleting relationships.
+- The dedicated Relationship Graph page now serves as the focused relationship visualization and exploration experience.
+- Graph filter and selection state are local for now; URL-persisted graph state remains a future improvement idea.
+- Local/manual verification passed.
+
+---
+
 ## [v1.2.0] — Timeline Explorer (2026-04-30)
 
 ### Added
