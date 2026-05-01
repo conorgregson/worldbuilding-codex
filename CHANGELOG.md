@@ -49,7 +49,7 @@ The format is inspired by *Keep a Changelog*, with concise milestone-based entri
 - The world detail page keeps the existing relationship management section for creating, viewing, and deleting relationships.
 - The dedicated Relationship Graph page now serves as the focused relationship visualization and exploration experience.
 - Graph filter and selection state are local for now; URL-persisted graph state remains a future improvement idea.
-- Local/manual verification passed.
+- Local/manual amd production verification passed.
 
 ---
 
